@@ -17,9 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IRK Innovations",
   description: "Innovating the future with cutting-edge engineering solutions.",
-  icons: {
-    icon: '/icon.jpg',
-  },
 };
 
 export default function RootLayout({
