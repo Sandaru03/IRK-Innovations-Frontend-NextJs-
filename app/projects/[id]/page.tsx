@@ -20,7 +20,7 @@ const ProjectDetails = () => {
 
     const fetchProject = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
         const response = await axios.get(`${apiUrl}/projects/${id}`);
         setProject(response.data);
       } catch (error) {
