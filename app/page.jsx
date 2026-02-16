@@ -224,33 +224,17 @@ const HomePage = () => {
         <div className="bg-emerald-700 text-white py-3">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
                 <div className="flex items-center gap-2">
                   <Phone size={16} />
-                  <span className="font-medium">+94 76 537 6106</span>
+                  <span className="font-medium whitespace-nowrap">+94 76 537 6106</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={16} />
                   <span className="font-medium">irkinnovations2022@gmail.com</span>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <span className="font-medium">Follow us:</span>
-                <div className="flex gap-3">
-                  <a href="#" className="hover:text-yellow-400 transition-colors">
-                    <Facebook size={18} />
-                  </a>
-                  <a href="#" className="hover:text-yellow-400 transition-colors">
-                    <Twitter size={18} />
-                  </a>
-                  <a href="#" className="hover:text-yellow-400 transition-colors">
-                    <Instagram size={18} />
-                  </a>
-                  <a href="#" className="hover:text-yellow-400 transition-colors">
-                    <Linkedin size={18} />
-                  </a>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -487,7 +471,7 @@ const HomePage = () => {
                 description: "Expert guidance in embedded product design, feasibility studies, and manufacturing strategies."
               },
               { 
-                title: "Architecture & PCB Design", 
+                title: "System Architecture & PCB Design", 
                 icon: <CircuitBoard />,
                 description: "Professional-grade PCB layout and system architecture design optimized for performance and cost."
               },
@@ -592,18 +576,18 @@ const HomePage = () => {
                 number: "01",
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop" 
+                image: "/Custom Electronics Design & Manufacturing.jpg" 
               },
               {
                 number: "02",
                 title: "Electronics Engineering Consulting",
-                description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=600&auto=format&fit=crop" // REPLACED: Reliable Engineering Image
+                description: "Expert guidance in product architecture designing, testing, cost optimization, DFM/DFA and bulk manufacturing.",
+                image: "/Electronics Engineering Consulting.jpg"
               },
               {
                 number: "03",
                 title: "Tech Product Sourcing",
-                description: "We help source reliable tech products directly from China with quality assurance.",
+                description: "We help to source reliable tech products with quality assurance.",
                 image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" 
               },
               // Duplicate Set for Infinite Scroll
@@ -611,13 +595,13 @@ const HomePage = () => {
                 number: "01",
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop" 
+                image: "/Custom Electronics Design & Manufacturing.jpg" 
               },
               {
                 number: "02",
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=600&auto=format&fit=crop" 
+                image: "/Electronics Engineering Consulting.jpg" 
               },
               {
                 number: "03",
@@ -664,7 +648,7 @@ const HomePage = () => {
 
           <div className="text-center">
              <p className="text-gray-300 font-medium text-sm">
-                Professional electrical solutions for every need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
+                Professional electronics solutions for every need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
              </p>
           </div>
 
@@ -695,7 +679,7 @@ const HomePage = () => {
               {
                 icon: <Shield className="text-yellow-500" size={48} />,
                 title: "Insured service",
-                description: "All projects covered with comprehensive insurance"
+                description: "All projects covered with comprehensive warranty"
               },
               {
                 icon: <Star className="text-yellow-500" size={48} />,
@@ -812,7 +796,7 @@ const HomePage = () => {
                    <div className="absolute inset-0 flex items-center justify-center">
                      <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
                        <div className="w-full h-full relative">
-                        <Image src="/IRK-Logo.jpg" alt="IRK Logo" fill className="object-cover" />
+                        <Image src="/IRK-Logo.jpg" alt="IRK Logo" fill className="object-cover scale-125" />
                        </div>
                      </div>
                    </div>
@@ -859,21 +843,7 @@ const HomePage = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center border-t border-white/20 pt-16">
-            {[
-              { number: 500, suffix: "+", label: "Happy Clients" },
-              { number: 1000, suffix: "+", label: "Projects Completed" },
-              { number: 2500, suffix: "+", label: "Products Delivered" },
-              { number: 100, suffix: "+", label: "Industry Awards" }
-            ].map((stat, index) => (
-              <div key={index}>
-                <div className="text-5xl md:text-6xl font-black text-yellow-400 mb-2">
-                  <AnimatedCounter end={stat.number} suffix={stat.suffix} />
-                </div>
-                <div className="text-white/90 font-bold text-lg">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+
 
         </div>
       </section>

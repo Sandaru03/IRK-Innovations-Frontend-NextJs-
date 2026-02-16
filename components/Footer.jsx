@@ -21,15 +21,9 @@ const Footer = () => {
                 <span className="font-bold text-3xl text-white tracking-tighter">IRK <span className="text-zinc-600">Innovations</span></span>
             </div>
             <p className="text-sm leading-relaxed max-w-sm">
-              Our team can assist with the installation and integration of home automation systems, allowing you to control your lighting and other electronic devices with ease.
+              IRK Innovations is a specialized electronics engineering and manufacturing firm with over 10 years of industry experience. They focus on providing "end-to-end" solutions, taking a client's specific problem and turning it into a fully realized electronic product through a structured design and production pipeline.
             </p>
-            <div className="flex gap-4 pt-4">
-               {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                 <a key={i} href="#" className="bg-yellow-500 hover:bg-yellow-400 text-black p-2 transition-colors">
-                   <Icon size={20} />
-                 </a>
-               ))}
-            </div>
+
           </div>
 
           {/* Column 2: Explore */}
@@ -56,13 +50,13 @@ const Footer = () => {
           <div>
             <h3 className="text-yellow-500 font-bold text-xl mb-8 uppercase tracking-wide">Contact Us</h3>
             <ul className="space-y-6 text-sm">
-               <li className="flex gap-4">
+               {/* <li className="flex gap-4">
                   <MapPin className="text-yellow-500 shrink-0" size={20} />
                   <div>
                     <span className="block text-white font-bold mb-1">Address</span>
                     Sample
                   </div>
-               </li>
+               </li> */}
                <li className="flex gap-4">
                   <Phone className="text-yellow-500 shrink-0" size={20} />
                   <div>

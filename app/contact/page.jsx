@@ -47,7 +47,7 @@ const ContactPage = () => {
       icon: <Phone size={24} />, 
       title: "Call Us", 
       content: "+94 76 537 6106", 
-      sub: "Mon-Fri 9am-6pm",
+      sub: "Everyday 8am-8pm",
       link: "tel:+94765376106" 
     },
     { 
@@ -57,13 +57,13 @@ const ContactPage = () => {
       sub: "Online support 24/7",
       link: "mailto:irkinnovations2022@gmail.com" 
     },
-    { 
-      icon: <MapPin size={24} />, 
-      title: "Visit Us", 
-      content: "Sample", 
-      sub: "Colombo, Sri Lanka",
-      link: "#" 
-    }
+    // { 
+    //   icon: <MapPin size={24} />, 
+    //   title: "Visit Us", 
+    //   content: "Sample", 
+    //   sub: "Colombo, Sri Lanka",
+    //   link: "#" 
+    // }
   ];
 
   return (

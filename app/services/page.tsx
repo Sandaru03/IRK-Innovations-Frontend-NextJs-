@@ -24,7 +24,7 @@ const ServicesPage = () => {
   const mainServices = [
     {
       title: "End-to-End Customized Electronics",
-      description: "We need your problem only — we will give you the solution. From design to manufacturing and installation, we follow standard industrial development steps.",
+      description: "We need your problem only — we offer you the solution. From design to manufacturing and installation, we follow standard industrial development steps.",
       icon: <Cpu size={32} />,
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800"
     },
@@ -32,11 +32,11 @@ const ServicesPage = () => {
       title: "Electronics Engineering Consultation",
       description: "10+ years of industry experience in Embedded products design and Manufacturing. Experts in architecture, testing, and cost optimization.",
       icon: <Settings size={32} />,
-      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=800"
+      image: "/Electronics Engineering Consulting.jpg"
     },
     {
       title: "Tech Products Sourcing",
-      description: "Need to source specific tech products? We have established networks to source high-quality components directly from China with QA.",
+      description: "Need to source specific tech products? We leverage our established global networks to source high-quality components and specialized hardware, ensuring rigorous Quality Assurance (QA) for every delivery.",
       icon: <Search size={32} />,
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800"
     }
@@ -186,7 +186,7 @@ const ServicesPage = () => {
                   </div>
                   <h3 className="text-3xl font-black mb-6">Global Tech Sourcing</h3>
                   <p className="text-emerald-100 mb-8 text-lg leading-relaxed">
-                    Leverage our established factory networks in China. We handle the technical verification, 
+                    Leverage our established factory networks in the world. We handle the technical verification, 
                     quality audits, and logistics so you get the best products at factory prices.
                   </p>
                   <ul className="space-y-4 mb-10">

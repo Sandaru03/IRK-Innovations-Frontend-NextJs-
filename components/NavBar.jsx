@@ -22,7 +22,7 @@ const NavBar = ({ position = "fixed" }) => {
                 src="/IRK-Logo.jpg"
                 alt="IRK Innovations"
                 fill
-                className="object-cover"
+                className="object-cover scale-125"
                 sizes="(max-width: 768px) 40px, 40px"
               />
             </div>
