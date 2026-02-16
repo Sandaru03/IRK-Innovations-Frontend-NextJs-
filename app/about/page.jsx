@@ -264,7 +264,7 @@ const AboutPage = () => {
                 {
                   icon: <Globe className="text-yellow-400" />,
                   title: "Global Supply Chain",
-                  text: "Direct partnerships with leading international manufacturers and tier-1 component suppliers to ensure maximum value and premium quality for your projects."
+                  text: "Direct partnerships with leading international manufacturers and tier-1 component suppliers to ensure maximum value and premium quality for your projects.eke tiyna images "
                 },
                 {
                   icon: <ShieldCheck className="text-yellow-400" />,
