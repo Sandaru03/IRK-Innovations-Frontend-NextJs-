@@ -104,7 +104,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="text-gray-900 font-black text-lg uppercase tracking-tight">{item.title}</h3>
-                    <p className="text-emerald-700 text-lg font-bold">{item.content}</p>
+                    <p className="text-emerald-700 text-lg font-bold break-all">{item.content}</p>
                     <p className="text-gray-500 text-sm">{item.sub}</p>
                   </div>
                 </a>
