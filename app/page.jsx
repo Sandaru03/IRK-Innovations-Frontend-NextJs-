@@ -193,6 +193,7 @@ const HomePage = () => {
     const fetchProjects = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+        console.log('Current API URL:', apiUrl);
         const response = await axios.get(`${apiUrl}/projects`);
         setApiProjects(response.data); 
       } catch (error) {
