@@ -17,7 +17,7 @@ const ProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
         const response = await axios.get(`${apiUrl}/projects`);
         setProjects(response.data);
       } catch (error) {

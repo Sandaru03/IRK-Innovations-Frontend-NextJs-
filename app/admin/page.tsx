@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const fetchProjects = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       const response = await axios.get(`${apiUrl}/projects`);
       setProjects(response.data);
       setLoading(false);
@@ -126,7 +126,7 @@ const Dashboard = () => {
         }
       };
       
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       if (editingProject) {
         await axios.put(`${apiUrl}/projects/${editingProject._id}`, formData, config);
       } else {
@@ -188,7 +188,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`
           }
         };
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
         await axios.delete(`${apiUrl}/projects/${id}`, config);
         fetchProjects();
       } catch (error) {

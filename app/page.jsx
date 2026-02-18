@@ -104,7 +104,7 @@ const HomePage = () => {
         message: formData.message
       };
       // Use NEXT_PUBLIC_API_URL or fallback
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       const response = await axios.post(`${apiUrl}/contact`, payload);
       toast.success(response.data.message || 'Message sent successfully!');
       setFormData({ name: '', email: '', phone: '', message: '' });
@@ -192,7 +192,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
         const response = await axios.get(`${apiUrl}/projects`);
         setApiProjects(response.data); 
       } catch (error) {

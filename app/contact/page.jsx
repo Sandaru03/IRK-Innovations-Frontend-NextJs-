@@ -31,7 +31,7 @@ const ContactPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       const response = await axios.post(`${apiUrl}/contact`, formData);
       toast.success(response.data.message || 'Message sent successfully!');
       setFormData({ name: '', email: '', subject: '', message: '' });
