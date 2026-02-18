@@ -7,10 +7,10 @@ export async function GET() {
   try {
     await dbConnect();
     const projects = await Project.find().sort({ createdAt: -1 });
-    return NextResponse.json(projects);
+    return NextResponse.json(projects, { status: 200 });
   } catch (error) {
-    console.error('API Error /projects:', error); // Log full error to terminal
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    console.error('API Error /projects:', error);
+    return NextResponse.json({ message: 'Error fetching projects', error: error.message }, { status: 500 });
   }
 }
 

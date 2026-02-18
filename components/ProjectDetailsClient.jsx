@@ -60,12 +60,12 @@ const ProjectDetailsClient = ({ project }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 pb-20">
          
          {/* Main Image - Featured */}
-         <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-16 aspect-video bg-zinc-100 max-w-5xl mx-auto relative">
+         <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-16 bg-zinc-100 max-w-5xl mx-auto relative h-[500px] md:h-[600px]">
             <Image 
                 src={project.mainImage} 
                 alt={project.title} 
                 fill
-                className="object-cover"
+                className="object-contain"
             />
          </div>
 
@@ -121,7 +121,7 @@ const ProjectDetailsClient = ({ project }) => {
                                 src={img} 
                                 alt={`Detail ${index + 1}`} 
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="object-contain transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                                 <span className="bg-white/90 backdrop-blur text-gray-900 px-4 py-2 rounded-full font-bold text-sm uppercase tracking-wider">
