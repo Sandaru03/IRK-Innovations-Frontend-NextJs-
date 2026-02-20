@@ -20,15 +20,26 @@ export const metadata: Metadata = {
     default: "IRK Innovations | Electronics Products & Engineering Solutions",
     template: "%s | IRK Innovations"
   },
-  description: "Leading electronics product design and manufacturing company. specialized in custom PCB design, embedded systems, and end-to-end electronics engineering solutions.",
-  keywords: ["IRK Innovations", "Electronics products", "PCB Design", "Electronics Manufacturing", "Embedded Systems", "Engineering Solutions", "Sri Lanka Electronics"],
+  description: "Expert PCB Design, Smart Control Systems, and Electronics Manufacturing. Specialized in Gate Control, AC Control, Hoist Protection, and Tech Product Sourcing.",
+  keywords: [
+    "Smart gate control system",
+    "Smart Air Condition control system",
+    "Hoist protection system",
+    "Tech Products Sourcing",
+    "Electronics Engineering Consultation",
+    "PCB Design", 
+    "Circuit Board Design", 
+    "Electronics Manufacturing", 
+    "Embedded Systems", 
+    "Sri Lanka Electronics"
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://irkinnovations.com',
     siteName: 'IRK Innovations',
-    title: "IRK Innovations | Electronics Products Design & Manufacturing",
-    description: "Customized Electronics Products Design & Manufacturing. Transform your ideas into reality with our expert engineering solutions.",
+    title: "IRK Innovations | Electronics Products & Engineering Solutions",
+    description: "Expert PCB Design and Electronics Manufacturing services. Custom engineering solutions from concept to production.",
     images: [
       {
         url: '/IRK-Logo.jpg',
@@ -40,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "IRK Innovations | Electronics Products",
-    description: "Your trusted partner for all electronics needs. Design, Manufacturing, and Sourcing.",
+    title: "IRK Innovations | Electronics Products & Engineering Solutions",
+    description: "Expert PCB Design and Electronics Manufacturing services.",
     images: ['/IRK-Logo.jpg'],
   },
   robots: {
