@@ -10,7 +10,6 @@ import Footer from '../../components/Footer';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [headerHeight, setHeaderHeight] = useState(0);
 
@@ -24,8 +23,6 @@ const ProjectsPage = () => {
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchProjects();
@@ -84,46 +81,37 @@ const ProjectsPage = () => {
 
           </div>
         </div>
-      </section>
 
+
+      </section>
       {/* ================= PROJECTS GRID ================= */}
       <section className="py-20 bg-white min-h-[600px]">
         <div className="max-w-7xl mx-auto px-4">
-          
-          {loading ? (
-            <div className="flex flex-col justify-center items-center h-64 space-y-4">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-500"></div>
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Loading Excellence...</p>
+          {filteredProjects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {filteredProjects.map((project) => (
+                <div key={project._id} className="group transition-all duration-500">
+                  <ProjectCard project={project} />
+                </div>
+              ))}
             </div>
           ) : (
-            <>
-              {filteredProjects.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                  {filteredProjects.map((project) => (
-                    <div key={project._id} className="group transition-all duration-500">
-                      <ProjectCard project={project} />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-24">
-                  <div className="inline-block p-12 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
-                    <Search size={48} className="mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-2xl font-black text-gray-900 mb-2">No projects found</h3>
-                    <p className="text-gray-500 mb-8 max-w-xs mx-auto">We couldn't find any projects matching your current search or filter criteria.</p>
-                    <button 
-                      onClick={() => setSearchTerm('')}
-                      className="bg-emerald-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-800 transition-all"
-                    >
-                      Clear Search
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+            <div className="text-center py-24">
+              <div className="inline-block p-12 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+                <Search size={48} className="mx-auto text-gray-300 mb-4" />
+                <h3 className="text-2xl font-black text-gray-900 mb-2">No projects found</h3>
+                <p className="text-gray-500 mb-8 max-w-xs mx-auto">We couldn't find any projects matching your current search or filter criteria.</p>
+                <button 
+                  onClick={() => setSearchTerm('')}
+                  className="bg-emerald-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-800 transition-all"
+                >
+                  Clear Search
+                </button>
+              </div>
+            </div>
           )}
-
         </div>
+
       </section>
 
       {/* ================= BOTTOM CTA ================= */}

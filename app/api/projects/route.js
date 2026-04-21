@@ -6,7 +6,16 @@ import { getAuthUser } from '../../../lib/auth';
 export async function GET() {
   try {
     await dbConnect();
-    const projects = await Project.find().sort({ createdAt: -1 });
+    // Only select summary fields for faster loading
+    const projects = await Project.find({}, {
+      title: 1,
+      shortDescription: 1,
+      mainImage: 1,
+      liveLink: 1,
+      createdAt: 1,
+      updatedAt: 1,
+      // _id is always included by default
+    }).sort({ createdAt: -1 });
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {
     console.error('API Error /projects:', error);

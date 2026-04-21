@@ -910,7 +910,7 @@ const HomePage = () => {
               },
               { 
                 q: "What is your typical turnaround time?", 
-                a: "Turnaround time varies by project complexity. Prototypes typically take 2-3 weeks, while bulk manufacturing timelines depend on order volume. We provide detailed timelines during consultation." 
+                a: "Turnaround time varies by project complexity. Prototypes typically take 1-2 months, while bulk manufacturing timelines depend on order volume. We provide detailed timelines during consultation." 
               },
               { 
                 q: "Do you offer warranty on your products?", 
