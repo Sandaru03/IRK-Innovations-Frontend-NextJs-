@@ -43,7 +43,7 @@ const ServicesPage = React.memo(() => {
   // Fallback image state for each card
   const [fallbacks, setFallbacks] = useState([false, false, false]);
 
-  const handleImageError = (idx) => {
+  const handleImageError = (idx: number) => {
     setFallbacks((prev) => {
       const arr = [...prev];
       arr[idx] = true;

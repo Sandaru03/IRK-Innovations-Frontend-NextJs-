@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: "Expert PCB Design and Electronics Manufacturing services. Custom engineering solutions from concept to production.",
     images: [
       {
-        url: '/IRK-Logo.jpg',
+        url: '/IRKLogo.jpg',
         width: 1200,
         height: 630,
         alt: 'IRK Innovations Logo',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "IRK Innovations | Electronics Products & Engineering Solutions",
     description: "Expert PCB Design and Electronics Manufacturing services.",
-    images: ['/IRK-Logo.jpg'],
+    images: ['/IRKLogo.jpg'],
   },
   robots: {
     index: true,
