@@ -118,6 +118,12 @@ const Dashboard = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Required field validation
+    const { title, description, shortDescription, mainImage } = formData;
+    if (!title || !description || !shortDescription || !mainImage) {
+      alert('Please fill all required fields and upload the main image.');
+      return;
+    }
     try {
       const token = localStorage.getItem('adminToken');
       const config = {
@@ -125,14 +131,12 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`
         }
       };
-      
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       if (editingProject) {
         await axios.put(`${apiUrl}/projects/${editingProject._id}`, formData, config);
       } else {
         await axios.post(`${apiUrl}/projects`, formData, config);
       }
-      
       fetchProjects();
       closeModal();
     } catch (error) {

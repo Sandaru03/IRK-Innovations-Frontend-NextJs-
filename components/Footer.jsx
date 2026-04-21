@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
                 <div className="h-10 w-10 relative rounded-lg overflow-hidden border border-yellow-500/50">
-                    <Image src="/IRK-Logo.jpg" alt="Logo" fill className="object-cover" sizes="40px" />
+                    <Image src="/IRKLogo.jpg" alt="Logo" fill className="object-cover" sizes="40px" />
                 </div>
                 <span className="font-bold text-3xl text-white tracking-tighter">IRK <span className="text-zinc-600">Innovations</span></span>
             </div>

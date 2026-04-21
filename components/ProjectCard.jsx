@@ -8,13 +8,25 @@ const ProjectCard = ({ project }) => {
     <div className="group flex flex-col h-full bg-transparent">
       
       {/* Image Section - Large Rounded Corners */}
+
       <div className="relative h-64 w-full overflow-hidden rounded-[32px] mb-6 shadow-sm">
-        <Image
-          src={project.mainImage}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        {project.mainImage ? (
+          <Image
+            src={project.mainImage}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            onError={(e) => {
+              // fallback to local image if Supabase or remote image fails
+              e.target.onerror = null;
+              e.target.src = "/fallback-project.png";
+            }}
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full w-full bg-gray-100 text-gray-400 text-2xl font-bold">
+            No Image
+          </div>
+        )}
         {/* Subtle overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
       </div>

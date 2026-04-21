@@ -15,11 +15,12 @@ const ProjectsPage = () => {
   const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
+
     const fetchProjects = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-        console.log('Projects Page API URL:', apiUrl);
-        const response = await axios.get(`${apiUrl}/projects`);
+        // Use lightweight endpoint for fast loading
+        const response = await axios.get(`${apiUrl}/projects/light`);
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);

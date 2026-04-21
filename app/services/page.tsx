@@ -3,15 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
+import dynamic from 'next/dynamic';
+const NavBar = dynamic(() => import('../../components/NavBar'), { ssr: false });
+const Footer = dynamic(() => import('../../components/Footer'), { ssr: false });
 import { 
   Cpu, Settings, Search, CheckCircle2, ArrowRight, Zap, 
   Layers, Box, Factory, ChevronRight, 
   ShieldCheck, Globe, FlaskConical, PenTool
 } from 'lucide-react';
 
-const ServicesPage = () => {
+const ServicesPage = React.memo(() => {
   const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
@@ -21,26 +22,34 @@ const ServicesPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const mainServices = [
+  const mainServices = React.useMemo(() => [
     {
       title: "End-to-End Customized Electronics",
-      description: "We need your problem only — we offer you the solution. From design to manufacturing and installation, we follow standard industrial development steps.",
-      icon: <Cpu size={32} />,
+      description: "We need your problem only we offer you the solution. From design to manufacturing and installation, we follow standard industrial development steps.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800"
     },
     {
       title: "Electronics Engineering Consultation",
-      description: "10+ years of industry experience in Embedded products design and Manufacturing. Experts in architecture, testing, and cost optimization.",
-      icon: <Settings size={32} />,
+      description: "10+ years of industry experience in Embedded products design and Manufacturing. Experts in architecture, testing and cost optimization.",
       image: "/Electronics Engineering Consulting.jpg"
     },
     {
       title: "Tech Products Sourcing",
       description: "Need to source specific tech products? We leverage our established global networks to source high-quality components and specialized hardware, ensuring rigorous Quality Assurance (QA) for every delivery.",
-      icon: <Search size={32} />,
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800"
     }
-  ];
+  ], []);
+
+  // Fallback image state for each card
+  const [fallbacks, setFallbacks] = useState([false, false, false]);
+
+  const handleImageError = (idx) => {
+    setFallbacks((prev) => {
+      const arr = [...prev];
+      arr[idx] = true;
+      return arr;
+    });
+  };
 
   const fullWorkflow = [
     { step: "01", title: "Information gathering", detail: "Requirements collection" },
@@ -52,7 +61,7 @@ const ServicesPage = () => {
     { step: "07", title: "Bulk Production", detail: "Mass production" }
   ];
 
-  const consultPoints = [
+  const consultPoints = React.useMemo(() => [
     "Electronics products architecture design",
     "Products testing",
     "Cost optimization / BOM optimization",
@@ -61,7 +70,7 @@ const ServicesPage = () => {
     "Assembly process optimization",
     "Electronics components sourcing",
     "Electronics bulk manufacturing"
-  ];
+  ], []);
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
@@ -86,23 +95,25 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* ================= MAIN SERVICES GRID ================= */}
+
+{/* ================= MAIN SERVICES GRID ================= */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {mainServices.map((service, i) => (
               <div key={i} className="group bg-gray-50 rounded-[32px] overflow-hidden border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="h-48 overflow-hidden relative">
-                  <Image 
-                    src={service.image} 
-                    alt={service.title} 
+                  <Image
+                    src={fallbacks[i] ? "/fallback.jpg" : service.image}
+                    alt={service.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700" 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    priority={i === 0}
+                    onError={() => handleImageError(i)}
                   />
                   <div className="absolute inset-0 bg-emerald-900/40 group-hover:bg-emerald-900/20 transition-colors"></div>
-                  <div className="absolute top-4 left-4 bg-yellow-400 p-3 rounded-2xl shadow-lg text-emerald-900">
-                    {service.icon}
-                  </div>
+                  {/* Removed yellow icon/circle */}
                 </div>
                 <div className="p-8">
                   <h3 className="text-2xl font-black text-gray-900 mb-4 leading-tight">{service.title}</h3>
@@ -114,45 +125,70 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* ================= WORKFLOW SECTION ================= */}
-      <section className="py-24 bg-gray-50 border-y border-gray-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">Product Development Lifecycle</h2>
-            <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+ {/* ================= WORKFLOW SECTION ================= */}
+<section className="py-24 bg-gray-50 border-y border-gray-200">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">Product Development Lifecycle</h2>
+      <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+    </div>
+
+    {/* Color palette for steps */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+      {fullWorkflow.map((item, index) => (
+        <div
+          key={index}
+          className="relative group perspective"
+        >
+          {/* Card Design (Modern Style) */}
+          <div
+            className="p-6 rounded-3xl border border-gray-200 h-full bg-white transition-all duration-500 ease-out 
+            group-hover:-translate-y-4 group-hover:bg-[#004F3B] group-hover:border-yellow-400 
+            group-hover:shadow-[0_20px_40px_-10px_rgba(0,79,59,0.3)]"
+          >
+            {/* Step Number */}
+            <span
+              className="text-4xl font-black block mb-4 transition-all duration-500 text-[#E0B907] group-hover:scale-110 group-hover:text-yellow-400"
+            >
+              {item.step}
+            </span>
+            
+            <h4 className="font-bold mb-2 text-sm uppercase tracking-tight text-gray-900 group-hover:text-white transition-colors duration-500">
+              {item.title}
+            </h4>
+            
+            <p className="text-xs text-gray-500 opacity-80 group-hover:text-emerald-100 transition-colors duration-500">
+              {item.detail}
+            </p>
+
+            {/* Shine effect on hover */}
+            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity bg-gradient-to-tr from-yellow-400 to-transparent pointer-events-none"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-            {fullWorkflow.map((item, index) => (
-              <div key={index} className="relative group">
-                <div className="bg-white p-6 rounded-2xl border border-gray-200 h-full shadow-sm group-hover:border-emerald-500 group-hover:shadow-md transition-all text-center">
-                  <span className="text-4xl font-black text-gray-100 group-hover:text-emerald-50 transition-colors block mb-2">{item.step}</span>
-                  <h4 className="font-bold text-gray-900 mb-2 text-sm uppercase tracking-tight">{item.title}</h4>
-                  <p className="text-xs text-gray-500">{item.detail}</p>
-                </div>
-                {index < fullWorkflow.length - 1 && (
-                  <div className="hidden xl:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 text-gray-300">
-                    <ChevronRight size={24} />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 bg-emerald-900 rounded-4xl p-8 text-white flex flex-col md:flex-row items-center gap-6 shadow-2xl">
-
-            <div>
-              <h4 className="text-xl font-bold mb-2">Efficiency Note:</h4>
-              <p className="text-emerald-100 opacity-90">
-                If the product does not require customized enclosures, we simplify the process by moving directly from 
-                <span className="font-bold text-yellow-400 px-2 uppercase">Prototyping</span> to 
-                <span className="font-bold text-yellow-400 px-2 uppercase">Mini Bulk</span>, saving you significant time and cost.
-              </p>
+          {/* Chevron */}
+          {index < fullWorkflow.length - 1 && (
+            <div className="hidden xl:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 text-gray-300">
+              <ChevronRight size={24} />
             </div>
-          </div>
+          )}
         </div>
-      </section>
+      ))}
+    </div>
 
+    <div className="mt-12 bg-emerald-900 rounded-4xl p-8 text-white flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+      <div>
+        <h4 className="text-xl font-bold mb-2">Efficiency Note:</h4>
+        <p className="text-emerald-100 opacity-90">
+          If the product does not require customized enclosures, we simplify the process by moving directly from 
+          <span className="font-bold text-yellow-400 px-2 uppercase">Prototyping</span> to 
+          <span className="font-bold text-yellow-400 px-2 uppercase">Mini Bulk</span>, saving you significant time and cost.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+      
       {/* ================= CONSULTATION & SOURCING ================= */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
@@ -233,6 +269,6 @@ const ServicesPage = () => {
       <Footer />
     </div>
   );
-};
+});
 
 export default ServicesPage;

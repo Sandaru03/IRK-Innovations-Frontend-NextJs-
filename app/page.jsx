@@ -795,9 +795,9 @@ const HomePage = () => {
                    </div>
                    
                    <div className="absolute inset-0 flex items-center justify-center">
-                     <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
+                     <div className="w-20 h-20 md:w-27 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
                        <div className="w-full h-full relative">
-                        <Image src="/IRK-Logo.jpg" alt="IRK Logo" fill className="object-cover scale-125" />
+                        <Image src="/IRKLogo.jpg" alt="IRK Logo" fill className="object-cover scale-125" />
                        </div>
                      </div>
                    </div>

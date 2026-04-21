@@ -19,7 +19,7 @@ const NavBar = ({ position = "fixed" }) => {
             <div className="h-10 w-10 relative rounded-lg overflow-hidden border border-yellow-500/50 group-hover:border-yellow-500 transition-colors">
               {/* Using the public folder image as requested */}
               <Image
-                src="/IRK-Logo.jpg"
+                src="/IRKLogo.jpg"
                 alt="IRK Innovations"
                 fill
                 className="object-cover"
