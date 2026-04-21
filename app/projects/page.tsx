@@ -19,8 +19,8 @@ const ProjectsPage = () => {
     const fetchProjects = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-        // Use lightweight endpoint for fast loading
-        const response = await axios.get(`${apiUrl}/projects/light`);
+        // Use full endpoint to get images
+        const response = await axios.get(`${apiUrl}/projects`);
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
