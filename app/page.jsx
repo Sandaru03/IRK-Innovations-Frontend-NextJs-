@@ -289,12 +289,12 @@ const HomePage = () => {
 
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
-                  Your trusted partner for
-                  <span className="block text-yellow-400">all your electronics needs</span>
+                  Your Trusted Partner for
+                  <span className="block text-yellow-400">All Your Electronics Needs</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-xl">
-                  Customized Electronics Products Design & Manufacturing. We need your problem only — we will give you the solution.
+                  Customized Electronics Products Design & Manufacturing. We Need Your Problem only. We Will Give You the Solutions.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -416,8 +416,8 @@ const HomePage = () => {
               </div>
               
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                Complete electronics services for
-                <span className="block text-emerald-600">every industry</span>
+                Complete Electronics Services for
+                <span className="block text-emerald-600">Every Industry</span>
               </h2>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
@@ -456,8 +456,8 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">OUR EXPERTISE</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-              Comprehensive solutions for <br/>
-              <span className="text-yellow-500">modern challenges</span>
+              Comprehensive Solutions for <br/>
+              <span className="text-yellow-500">Modern Challenges</span>
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
               We combine technical expertise with innovative thinking to deliver high-quality electronics engineering services tailored to your specific needs.
@@ -552,8 +552,8 @@ const HomePage = () => {
               <p className="text-yellow-400 font-bold uppercase tracking-wider text-sm">Our Services</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
-              Specialized electrical services<br />
-              for <span className="text-yellow-400">every industry</span>
+              Specialized Electrical Services<br />
+              for <span className="text-yellow-400">Every Industry</span>
             </h2>
           </div>
 
@@ -649,7 +649,7 @@ const HomePage = () => {
 
           <div className="text-center">
              <p className="text-gray-300 font-medium text-sm">
-                Professional electronics solutions for every need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
+                Professional Electronics Solutions for Every Need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
              </p>
           </div>
 
@@ -666,7 +666,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">WHY CHOOSE US</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900">
-              Awards and certifications that<br />reflect our excellence
+              Awards and Certifications that<br />Reflect Our Excellence
             </h2>
           </div>
 
@@ -674,22 +674,22 @@ const HomePage = () => {
             {[
               {
                 icon: <Award className="text-yellow-500" size={48} />,
-                title: "Licensed company",
+                title: "Licensed Company",
                 description: "Certified and registered electronics manufacturing company"
               },
               {
                 icon: <Shield className="text-yellow-500" size={48} />,
-                title: "Insured service",
+                title: "Insured Service",
                 description: "All projects covered with comprehensive warranty"
               },
               {
                 icon: <Star className="text-yellow-500" size={48} />,
-                title: "Certified technicians",
+                title: "Certified Technicians",
                 description: "Highly trained and certified electronics engineers"
               },
               {
                 icon: <ThumbsUp className="text-yellow-500" size={48} />,
-                title: "Trusted experts",
+                title: "Trusted Experts",
                 description: "Over 10 years of industry experience and expertise"
               }
             ].map((item, index) => (
@@ -720,7 +720,7 @@ const HomePage = () => {
               </div>
               
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                Our goals to deliver top-notch <span className="text-yellow-400">electrical solutions</span>
+                Our Goals to Deliver top-notch <span className="text-yellow-400">Electrical Solutions</span>
               </h2>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
@@ -731,18 +731,14 @@ const HomePage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 {/* Card 1 */}
                 <div className="p-6 rounded-3xl border border-gray-100 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300">
-                  <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mb-6 text-emerald-700">
-                    <Sparkles size={32} strokeWidth={1.5} />
-                  </div>
+                  
                   <h3 className="font-bold text-xl mb-3 text-gray-900">Commitment To Innovation</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">We strive to continuously innovate, incorporating modern tech into our workflow.</p>
                 </div>
                 
                 {/* Card 2 */}
                 <div className="p-6 rounded-3xl border border-gray-100 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300">
-                  <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mb-6 text-emerald-700">
-                    <Users size={32} strokeWidth={1.5} />
-                  </div>
+                  
                   <h3 className="font-bold text-xl mb-3 text-gray-900">Customer-Centric Focus</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">We aim to build long-lasting relationships by providing exceptional service.</p>
                 </div>
@@ -819,7 +815,7 @@ const HomePage = () => {
           
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Hassle-free estimates just a<br />click away
+              Hassle-Free Estimates Just a<br />Click Away
             </h2>
             <p className="text-xl text-white/90">
               Simple, transparent process from start to finish
@@ -859,7 +855,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">OUR PORTFOLIO</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-              Discover our latest insights and<br />expert projects
+              Discover Our Latest Insights and<br />Expert Projects
             </h2>
           </div>
 
@@ -898,7 +894,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">FAQ</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900">
-              Common questions about our<br />electronics services
+              Common Questions About Our<br />Electronics Services
             </h2>
           </div>
 
@@ -1075,7 +1071,7 @@ const HomePage = () => {
       <section className="py-20 bg-linear-to-br from-emerald-700 to-emerald-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Discover our latest insights and<br />expert advice
+            Discover Our Latest Insights and<br />Expert Advice
           </h2>
           <p className="text-xl mb-10 text-white/90">
             End-to-end electronics design and manufacturing services built for quality, efficiency, and long-term reliability.

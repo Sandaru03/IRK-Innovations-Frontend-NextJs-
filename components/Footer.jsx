@@ -60,14 +60,14 @@ const Footer = () => {
                <li className="flex gap-4">
                   <Phone className="text-yellow-500 shrink-0" size={20} />
                   <div>
-                    <span className="block text-white font-bold mb-1">Phone:</span>
+                    <span className="block text-white font-bold mb-1">Phone</span>
                     +94 76 537 6106
                   </div>
                </li>
                <li className="flex gap-4">
                   <Mail className="text-yellow-500 shrink-0" size={20} />
                   <div>
-                    <span className="block text-white font-bold mb-1">Email:</span>
+                    <span className="block text-white font-bold mb-1">Email</span>
                     irkinnovations2022@gmail.com
                   </div>
                </li>
