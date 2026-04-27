@@ -60,8 +60,13 @@ const Footer = () => {
                <li className="flex gap-4">
                   <Phone className="text-yellow-500 shrink-0" size={20} />
                   <div>
-                    <span className="block text-white font-bold mb-1">Phone</span>
-                    +94 76 537 6106
+                    <span className="block text-white font-bold mb-1">Phone & WhatsApp</span>
+                    <div className="flex flex-col gap-1">
+                      <a href="tel:+94765376106" className="hover:text-yellow-500 transition-colors inline-block">+94 76 537 6106</a>
+                      <a href="https://wa.me/94765376106" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:text-[#1da851] transition-colors font-medium inline-block text-sm">
+                        Chat on WhatsApp
+                      </a>
+                    </div>
                   </div>
                </li>
                <li className="flex gap-4">
