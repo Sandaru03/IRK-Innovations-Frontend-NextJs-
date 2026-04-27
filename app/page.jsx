@@ -861,7 +861,7 @@ const HomePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {Array.isArray(apiProjects) && apiProjects.length > 0 ? (
-              apiProjects.slice(0, 6).map((project) => (
+              (apiProjects.some(p => p.isFeatured) ? apiProjects.filter(p => p.isFeatured) : apiProjects).slice(0, 6).map((project) => (
                 <ProjectCard key={project._id} project={project} />
               ))
             ) : (

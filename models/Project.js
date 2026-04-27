@@ -3,19 +3,19 @@ import mongoose from 'mongoose';
 const projectSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: false
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   shortDescription: {
     type: String,
-    required: true
+    required: false
   },
   mainImage: {
     type: String,
-    required: true
+    required: false
   },
   detailImages: {
     type: [String],
@@ -23,9 +23,14 @@ const projectSchema = new mongoose.Schema({
   },
   liveLink: {
     type: String
+  },
+  isFeatured: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 
-const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);
+delete mongoose.models.Project;
+const Project = mongoose.model('Project', projectSchema);
 
 export default Project;

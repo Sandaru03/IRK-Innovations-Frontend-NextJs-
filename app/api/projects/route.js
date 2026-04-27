@@ -3,19 +3,26 @@ import dbConnect from '../../../lib/db';
 import Project from '../../../models/Project';
 import { getAuthUser } from '../../../lib/auth';
 
-export async function GET() {
+export async function GET(req) {
   try {
     await dbConnect();
-    // Only select summary fields for faster loading
-    const projects = await Project.find({}, {
-      title: 1,
-      shortDescription: 1,
-      mainImage: 1,
-      liveLink: 1,
-      createdAt: 1,
-      updatedAt: 1,
-      // _id is always included by default
-    }).sort({ createdAt: -1 });
+    const { searchParams } = new URL(req.url);
+    const isFull = searchParams.get('full') === 'true';
+
+    let projection = {};
+    if (!isFull) {
+      projection = {
+        title: 1,
+        shortDescription: 1,
+        mainImage: 1,
+        liveLink: 1,
+        isFeatured: 1,
+        createdAt: 1,
+        updatedAt: 1
+      };
+    }
+
+    const projects = await Project.find({}, projection).sort({ createdAt: -1 });
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {
     console.error('API Error /projects:', error);
@@ -33,11 +40,7 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { title, description, shortDescription, mainImage, detailImages, liveLink } = body;
-
-    if (!title || !description || !shortDescription || !mainImage) {
-      return NextResponse.json({ message: 'Please add all required fields' }, { status: 400 });
-    }
+    const { title, description, shortDescription, mainImage, detailImages, liveLink, isFeatured } = body;
 
     const project = await Project.create({
       title,
@@ -45,7 +48,8 @@ export async function POST(req) {
       shortDescription,
       mainImage,
       detailImages,
-      liveLink
+      liveLink,
+      isFeatured
     });
 
     return NextResponse.json(project, { status: 201 });

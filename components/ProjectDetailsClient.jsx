@@ -30,7 +30,7 @@ const ProjectDetailsClient = ({ project }) => {
         {/* Background Overlay Image (Blurred) */}
         <div className="absolute inset-0 z-0">
              <Image 
-               src={project.mainImage} 
+               src={project.mainImage || "/fallback-project.png"} 
                alt="Background" 
                fill
                className="object-cover opacity-20 blur-xl scale-110" 
@@ -45,7 +45,7 @@ const ProjectDetailsClient = ({ project }) => {
           
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
-              {project.title}
+              {project.title || "Untitled Project"}
             </h1>
             {project.shortDescription && (
                 <p className="text-xl md:text-2xl text-zinc-300 font-light leading-relaxed max-w-3xl">
@@ -62,8 +62,8 @@ const ProjectDetailsClient = ({ project }) => {
          {/* Main Image - Featured */}
          <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-16 bg-zinc-100 max-w-5xl mx-auto relative h-[500px] md:h-[600px]">
             <Image 
-                src={project.mainImage} 
-                alt={project.title} 
+                src={project.mainImage || "/fallback-project.png"} 
+                alt={project.title || "Project Image"} 
                 fill
                 className="object-contain"
             />

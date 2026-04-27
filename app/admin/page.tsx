@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, LogOut, LayoutDashboard, Link as LinkIcon, Edit2, Loader } from 'lucide-react';
+import { Plus, Trash2, LogOut, LayoutDashboard, Link as LinkIcon, Edit2, Loader, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabaseClient';
 
@@ -37,7 +37,7 @@ const Dashboard = () => {
   const fetchProjects = async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-      const response = await axios.get(`${apiUrl}/projects`);
+      const response = await axios.get(`${apiUrl}/projects?full=true`);
       setProjects(response.data);
       setLoading(false);
     } catch (error) {
@@ -118,12 +118,8 @@ const Dashboard = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Required field validation
-    const { title, description, shortDescription, mainImage } = formData;
-    if (!title || !description || !shortDescription || !mainImage) {
-      alert('Please fill all required fields and upload the main image.');
-      return;
-    }
+    // Required field validation removed as requested
+
     try {
       const token = localStorage.getItem('adminToken');
       const config = {
@@ -149,10 +145,10 @@ const Dashboard = () => {
     if (project) {
       setEditingProject(project);
       setFormData({
-        title: project.title,
-        description: project.description,
+        title: project.title || '',
+        description: project.description || '',
         shortDescription: project.shortDescription || '',
-        mainImage: project.mainImage,
+        mainImage: project.mainImage || '',
         detailImages: project.detailImages || [],
         liveLink: project.liveLink || ''
       });
@@ -201,6 +197,28 @@ const Dashboard = () => {
     }
   };
 
+  const handleToggleFeature = async (project: any) => {
+    const isCurrentlyFeatured = project.isFeatured;
+    const featuredCount = projects.filter(p => p.isFeatured).length;
+
+    if (!isCurrentlyFeatured && featuredCount >= 6) {
+      alert('You can only select up to 6 projects for the home page. Please unselect one first.');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+      await axios.put(`${apiUrl}/projects/${project._id}`, { isFeatured: !isCurrentlyFeatured }, config);
+      fetchProjects();
+    } catch (error) {
+      console.error('Error toggling featured status:', error);
+      alert('Error updating project status');
+    }
+  };
+
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 flex font-sans selection:bg-emerald-500 selection:text-white">
       {/* Sidebar - Modern Dark Gradient */}
@@ -241,6 +259,10 @@ const Dashboard = () => {
            <div>
               <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">Project Management</h2>
               <p className="text-slate-500 mt-2 text-lg">Manage and update your portfolio efficiently.</p>
+              <div className="mt-4 inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-full font-bold">
+                 <Star className="w-5 h-5 fill-current" />
+                 <span>Home Page Projects: {projects.filter(p => p.isFeatured).length} / 6</span>
+              </div>
            </div>
           
           <button
@@ -264,9 +286,14 @@ const Dashboard = () => {
                 <div className="h-64 overflow-hidden relative">
                   <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
-                  
-                  {/* Floating Action Buttons */}
-                  <div className="absolute top-4 right-4 flex gap-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                  <div className="absolute top-4 right-4 flex gap-3 opacity-100 transform translate-y-0 transition-all duration-300">
+                    <button
+                      onClick={() => handleToggleFeature(project)}
+                      className={`p-3 backdrop-blur-md rounded-full shadow-lg transition-all cursor-pointer ${project.isFeatured ? 'bg-yellow-400 text-white hover:bg-yellow-500 hover:scale-110' : 'bg-white/90 text-slate-400 hover:bg-white hover:text-yellow-400 hover:scale-110'}`}
+                      title={project.isFeatured ? "Remove from Home Page" : "Add to Home Page"}
+                    >
+                      <Star className={`w-5 h-5 ${project.isFeatured ? 'fill-current' : ''}`} />
+                    </button>
                     <button
                       onClick={() => openModal(project)}
                       className="p-3 bg-white/90 backdrop-blur-md text-emerald-600 rounded-full hover:bg-white hover:scale-110 shadow-lg transition-all cursor-pointer"
@@ -322,7 +349,7 @@ const Dashboard = () => {
                             onChange={handleChange}
                             className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all font-medium"
                             placeholder="e.g. Smart Automation System"
-                            required
+
                         />
                     </div>
                     <div className="space-y-2">
@@ -349,8 +376,8 @@ const Dashboard = () => {
                         onChange={handleChange}
                         rows={2}
                         className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all"
-                        required
                         placeholder="A brief summary for the card view..."
+
                     ></textarea>
                   </div>
                   
@@ -362,8 +389,8 @@ const Dashboard = () => {
                         onChange={handleChange}
                         rows={6}
                         className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all leading-relaxed"
-                        required
                         placeholder="Detailed explanation of the project features and technologies..."
+
                     ></textarea>
                   </div>
 
