@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req) {
   try {
     await dbConnect();
-    const { searchParams } = new URL(req.url);
+    const searchParams = req.nextUrl.searchParams;
     const isFull = searchParams.get('full') === 'true';
 
     let projection = {};

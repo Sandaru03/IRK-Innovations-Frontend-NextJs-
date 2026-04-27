@@ -9,13 +9,13 @@ async function getProject(id: string) {
     await dbConnect();
     const project = await Project.findById(id).lean(); // lean() for plain JS objects
     if (!project) return null;
-    
-    // Convert _id and dates to string to pass to client component
-    project._id = project._id.toString();
-    project.createdAt = project.createdAt?.toString();
-    project.updatedAt = project.updatedAt?.toString();
-    
-    return project;
+    // Construct a new object to avoid TS type errors assigning string to ObjectId
+    return {
+      ...project,
+      _id: project._id.toString(),
+      createdAt: project.createdAt?.toString(),
+      updatedAt: project.updatedAt?.toString(),
+    };
   } catch (error) {
     console.error('Error fetching project:', error);
     return null;
@@ -37,17 +37,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${project.title} | IRK Innovations`,
-    description: project.shortDescription,
+    title: `${project.title || 'Untitled'} | IRK Innovations`,
+    description: project.shortDescription || '',
     openGraph: {
-      title: `${project.title} | IRK Innovations`,
-      description: project.shortDescription,
+      title: `${project.title || 'Untitled'} | IRK Innovations`,
+      description: project.shortDescription || '',
       images: [
         {
-          url: project.mainImage,
+          url: project.mainImage || '',
           width: 800,
           height: 600,
-          alt: project.title,
+          alt: project.title || 'Project image',
         },
       ],
     },
