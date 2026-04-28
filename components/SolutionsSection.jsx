@@ -30,7 +30,7 @@ const solutions = [
   {
     title: "Bulk Manufacturing",
     description: "End-to-end manufacturing services from prototyping to high-volume production waves.",
-    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?q=80&w=800",
+    image: "https://images.unsplash.com/photo-1608126841830-53832c4b326f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QnVsayUyME1hbnVmYWN0dXJpbmclMjBFbmQtdG8tZW5kJTIwbWFudWZhY3R1cmluZyUyMHNlcnZpY2VzJTIwZnJvbSUyMHByb3RvdHlwaW5nJTIwdG8lMjBoaWdoLXZvbHVtZSUyMHByb2R1Y3Rpb24lMjB3YXZlcy58ZW58MHx8MHx8fDA%3D",
   }
 ];
 
@@ -56,10 +56,10 @@ const SolutionsSection = () => {
             <div key={index} className="flex flex-col group h-full">
               {/* Image Card - Top */}
               <div className="w-full h-52 rounded-[32px] overflow-hidden shadow-lg relative">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
+                <Image 
+                  src={item.image} 
+                  alt={item.title} 
+                  fill 
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-emerald-900/0 transition-colors duration-500"></div>
