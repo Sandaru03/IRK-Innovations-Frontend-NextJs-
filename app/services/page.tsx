@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-const NavBar = dynamic(() => import('../../components/NavBar'), { ssr: false });
-const Footer = dynamic(() => import('../../components/Footer'), { ssr: false });
+import NavBar from '../../components/NavBar';
+import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
 import { 
   Cpu, Settings, Search, CheckCircle2, ArrowRight, Zap, 
   Layers, Box, Factory, ChevronRight, 

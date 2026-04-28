@@ -7,10 +7,11 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import ProjectCard from '../components/ProjectCard';
 import NavBar from '../components/NavBar';
+import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-import { 
-  CheckCircle, ArrowRight, Phone, Mail, MapPin, 
-  ChevronLeft, ChevronRight, Zap, Award, Users, Target, 
+import {
+  CheckCircle, ArrowRight, Phone, Mail, MapPin,
+  ChevronLeft, ChevronRight, Zap, Award, Users, Target,
   Plus, Minus, Cpu, CircuitBoard, Factory, Globe, Settings,
   Shield, Sparkles, TrendingUp, Wrench, Star, Clock, ThumbsUp,
   Facebook, Twitter, Instagram, Linkedin, Youtube,
@@ -50,7 +51,7 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
+
       // Easing function for smooth animation
       const easeOutQuad = (t) => t * (2 - t);
       const currentCount = Math.floor(easeOutQuad(percentage) * end);
@@ -121,17 +122,17 @@ const HomePage = () => {
     if (!scrollContainer) return;
 
     let animationFrameId;
-    
+
     const scroll = () => {
       if (scrollContainer) {
         // Continuous scroll speed
-        scrollContainer.scrollLeft += 1; 
+        scrollContainer.scrollLeft += 1;
 
         // Check if we are near the end (looping logic)
         // We have duplicates. Reset when we scroll past half the width (approx one set of items)
         if (scrollContainer.scrollLeft >= (scrollContainer.scrollWidth / 2)) {
-           // Reset to 0 (or a small offset if needed for perfect smoothness, but 0 works if duplicates are exact)
-           scrollContainer.scrollLeft = 0;
+          // Reset to 0 (or a small offset if needed for perfect smoothness, but 0 works if duplicates are exact)
+          scrollContainer.scrollLeft = 0;
         }
       }
       animationFrameId = requestAnimationFrame(scroll);
@@ -195,7 +196,7 @@ const HomePage = () => {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
         console.log('Current API URL:', apiUrl);
         const response = await axios.get(`${apiUrl}/projects`);
-        setApiProjects(response.data); 
+        setApiProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
@@ -218,45 +219,26 @@ const HomePage = () => {
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
-      
+
       {/* ================= FIXED HEADER WRAPPER ================= */}
       <header ref={headerRef} className="fixed top-0 w-full z-50">
-        {/* ================= TOP INFO BAR ================= */}
-        <div className="bg-emerald-700 text-white py-3">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
-                <div className="flex items-center gap-2">
-                  <Phone size={16} />
-                  <span className="font-medium whitespace-nowrap">+94 76 537 6106</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail size={16} />
-                  <span className="font-medium">irkinnovations2022@gmail.com</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-  
+        <TopBar />
         <NavBar position="static" />
       </header>
 
       {/* ================= HERO SLIDER SECTION ================= */}
       <section id="home" className="relative h-[700px] overflow-hidden" style={{ marginTop: headerHeight }}>
-        
+
         {/* Slider Images */}
         {slides.map((slide, index) => (
-          <div 
+          <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
           >
-            <Image 
-              src={slide.image} 
-              alt={slide.title} 
+            <Image
+              src={slide.image}
+              alt={slide.title}
               fill
               className="object-cover"
               priority={index === 0}
@@ -266,14 +248,14 @@ const HomePage = () => {
         ))}
 
         {/* Slider Controls */}
-        <button 
-          onClick={prevSlide} 
+        <button
+          onClick={prevSlide}
           className="hidden md:block absolute left-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-yellow-400 hover:border-yellow-400 transition-all duration-300"
         >
           <ChevronLeft size={24} />
         </button>
-        <button 
-          onClick={nextSlide} 
+        <button
+          onClick={nextSlide}
           className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-yellow-400 hover:border-yellow-400 transition-all duration-300"
         >
           <ChevronRight size={24} />
@@ -283,7 +265,7 @@ const HomePage = () => {
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-[-60px] md:mt-[-40px]">
-              
+
               {/* Left: Text Content */}
               <div className="text-white">
 
@@ -298,15 +280,15 @@ const HomePage = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                  <Link 
-                    href="/services" 
+                  <Link
+                    href="/services"
                     className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-all duration-300 shadow-lg"
                   >
                     Our Services
                     <ArrowRight size={20} />
                   </Link>
-                  <Link 
-                    href="/projects" 
+                  <Link
+                    href="/projects"
                     className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-gray-900 transition-all duration-300"
                   >
                     Our Projects
@@ -326,14 +308,13 @@ const HomePage = () => {
         {/* Slide Indicators */}
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
           {slides.map((_, idx) => (
-            <button 
-              key={idx} 
+            <button
+              key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                idx === currentSlide 
-                  ? 'w-12 bg-yellow-400' 
+              className={`h-1 rounded-full transition-all duration-300 ${idx === currentSlide
+                  ? 'w-12 bg-yellow-400'
                   : 'w-8 bg-white/40 hover:bg-white/60'
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -343,9 +324,9 @@ const HomePage = () => {
       {/* ================= SERVICES INTRO ================= */}
       <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             {/* Left: Image Grid with Floating Animation */}
             <div className="relative">
               <style jsx>{`
@@ -364,22 +345,22 @@ const HomePage = () => {
                   animation: float-2 6s ease-in-out infinite;
                 }
               `}</style>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 {/* Column 1: Floats Up/Down */}
                 <div className="space-y-4 animate-float-1">
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" 
-                      alt="Electronics Lab" 
+                    <Image
+                      src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop"
+                      alt="Electronics Lab"
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" 
-                      alt="Circuit Design" 
+                    <Image
+                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop"
+                      alt="Circuit Design"
                       fill
                       className="object-cover"
                     />
@@ -389,17 +370,17 @@ const HomePage = () => {
                 {/* Column 2: Floats Down/Up (Diff Rhythm) */}
                 <div className="space-y-4 pt-8 animate-float-2">
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop" 
-                      alt="PCB Board" 
+                    <Image
+                      src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop"
+                      alt="PCB Board"
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" 
-                      alt="Manufacturing" 
+                    <Image
+                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
+                      alt="Manufacturing"
                       fill
                       className="object-cover"
                     />
@@ -414,21 +395,21 @@ const HomePage = () => {
                 <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
                 <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">ABOUT IRK INNOVATIONS</p>
               </div>
-              
+
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
                 Complete Electronics Services for
                 <span className="block text-emerald-600">Every Industry</span>
               </h2>
-              
+
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 IRK Innovations is a leading electronics product design and manufacturing company with over 10 years of industry experience. We specialize in delivering customized, end-to-end solutions that transform ideas into reality.
               </p>
-              
+
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 From initial consultation to final installation, we handle every aspect of product development with precision, quality, and innovation at the core.
               </p>
 
-              <Link 
+              <Link
                 href="/about"
                 className="inline-flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-bold hover:bg-yellow-500 transition-all duration-300"
               >
@@ -448,7 +429,7 @@ const HomePage = () => {
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-emerald-600/5 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4">
@@ -456,7 +437,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">OUR EXPERTISE</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-              Comprehensive Solutions for <br/>
+              Comprehensive Solutions for <br />
               <span className="text-yellow-500">Modern Challenges</span>
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
@@ -466,52 +447,52 @@ const HomePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { 
-                title: "Engineering Consultation", 
+              {
+                title: "Engineering Consultation",
                 icon: <Users />,
                 description: "Expert guidance in embedded product design, feasibility studies, and manufacturing strategies."
               },
-              { 
-                title: "System Architecture & PCB Design", 
+              {
+                title: "System Architecture & PCB Design",
                 icon: <CircuitBoard />,
                 description: "Professional-grade PCB layout and system architecture design optimized for performance and cost."
               },
-              { 
-                title: "Cost & BOM Optimization", 
+              {
+                title: "Cost & BOM Optimization",
                 icon: <TrendingUp />,
                 description: "Strategic component selection and Bill of Materials optimization to maximize value."
               },
-              { 
-                title: "DFM & DFA Analysis", 
+              {
+                title: "DFM & DFA Analysis",
                 icon: <Settings />,
                 description: "Design for Manufacturing and Assembly reviews to ensure seamless production scalability."
               },
-              { 
-                title: "Product Testing & QA", 
+              {
+                title: "Product Testing & QA",
                 icon: <Shield />,
                 description: "Comprehensive testing protocols including functional, environmental, and reliability testing."
               },
-              { 
-                title: "Bulk Manufacturing", 
+              {
+                title: "Bulk Manufacturing",
                 icon: <Factory />,
                 description: "End-to-end manufacturing services from prototyping to high-volume production waves."
               },
             ].map((item, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
               >
                 {/* Top Accent Line */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-emerald-500 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
 
                 <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors duration-300">
-                  {React.cloneElement(item.icon, { 
-                    size: 28, 
+                  {React.cloneElement(item.icon, {
+                    size: 28,
                     className: "text-emerald-600 group-hover:text-white transition-colors duration-300",
                     strokeWidth: 2
                   })}
                 </div>
-                
+
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors">
                   {item.title}
                 </h3>
@@ -527,7 +508,7 @@ const HomePage = () => {
 
       {/* ================= SPECIALIZED SERVICES (Green Section) ================= */}
       <section className="py-24 bg-[#143d2d] text-white relative overflow-hidden font-sans">
-        
+
         {/* Background Pattern */}
         {/* User Patterns - Transparent SVGs */}
         <Circle strokeWidth={1} size={300} className="absolute -top-24 -left-24 text-white opacity-5 pointer-events-none" />
@@ -538,14 +519,14 @@ const HomePage = () => {
           <div className="absolute top-0 left-0 w-64 h-64 border-r border-b border-white/20 rounded-br-[100px]"></div>
           <div className="absolute right-0 bottom-0 w-96 h-96 rounded-tl-full border-t border-l border-white/10"></div>
           <div className="absolute right-10 bottom-10 grid grid-cols-12 gap-2">
-             {[...Array(48)].map((_, i) => (
-               <div key={i} className="w-1 h-1 bg-white/30 rounded-full"></div>
-             ))}
+            {[...Array(48)].map((_, i) => (
+              <div key={i} className="w-1 h-1 bg-white/30 rounded-full"></div>
+            ))}
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
@@ -567,9 +548,9 @@ const HomePage = () => {
               scrollbar-width: none;
             }
           `}</style>
-          
-          <div 
-            ref={scrollRef} 
+
+          <div
+            ref={scrollRef}
             className="flex overflow-x-auto gap-8 pb-12 items-stretch hide-scrollbar px-4"
           >
             {[
@@ -577,7 +558,7 @@ const HomePage = () => {
                 number: "01",
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "/Custom Electronics Design & Manufacturing.jpg" 
+                image: "/Custom Electronics Design & Manufacturing.jpg"
               },
               {
                 number: "02",
@@ -589,36 +570,36 @@ const HomePage = () => {
                 number: "03",
                 title: "Tech Product Sourcing",
                 description: "We help to source reliable tech products with quality assurance.",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" 
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
               },
               // Duplicate Set for Infinite Scroll
-               {
+              {
                 number: "01",
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "/Custom Electronics Design & Manufacturing.jpg" 
+                image: "/Custom Electronics Design & Manufacturing.jpg"
               },
               {
                 number: "02",
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "/Electronics Engineering Consulting.jpg" 
+                image: "/Electronics Engineering Consulting.jpg"
               },
               {
                 number: "03",
                 title: "Tech Product Sourcing",
                 description: "We help source reliable tech products directly from China with quality assurance.",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" 
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
               }
             ].map((service, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex-none w-[85vw] sm:w-[400px] group relative rounded-3xl overflow-hidden h-[450px] shadow-2xl border border-white/10"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
-                   <Image 
-                    src={service.image} 
+                  <Image
+                    src={service.image}
                     alt={service.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -630,15 +611,15 @@ const HomePage = () => {
                 {/* Content */}
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
                   <div className="absolute top-8 left-8">
-                     <span className="text-6xl font-black text-white/20 select-none">
-                       {service.number}
-                     </span>
+                    <span className="text-6xl font-black text-white/20 select-none">
+                      {service.number}
+                    </span>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold mb-4 text-white relative z-10">
                     {service.title}
                   </h3>
-                  
+
                   <p className="text-gray-100 text-sm leading-relaxed mb-6 pl-4 font-medium backdrop-blur-sm bg-black/10 p-2 rounded-r-lg">
                     {service.description}
                   </p>
@@ -648,9 +629,9 @@ const HomePage = () => {
           </div>
 
           <div className="text-center">
-             <p className="text-gray-300 font-medium text-sm">
-                Professional Electronics Solutions for Every Need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
-             </p>
+            <p className="text-gray-300 font-medium text-sm">
+              Professional Electronics Solutions for Every Need. <Link href="/contact" className="text-yellow-400 underline hover:text-yellow-300">Contact Us Today!</Link>
+            </p>
           </div>
 
         </div>
@@ -659,7 +640,7 @@ const HomePage = () => {
       {/* ================= WHY CHOOSE US ================= */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
@@ -710,7 +691,7 @@ const HomePage = () => {
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             {/* LEFT COLUMN: Content */}
             <div className="order-2 lg:order-1">
               {/* Subtitle */}
@@ -718,11 +699,11 @@ const HomePage = () => {
                 <span className="w-2 h-2 rounded-full bg-emerald-700"></span>
                 <p className="text-gray-900 font-bold uppercase tracking-wider text-sm">OUR GOALS</p>
               </div>
-              
+
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
                 Our Goals to Deliver top-notch <span className="text-yellow-400">Electrical Solutions</span>
               </h2>
-              
+
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
                 Our goal is to be a leader in providing environmentally conscious electrical services. We focus on energy-efficient solutions and sustainable practices to not only meet industry standards but to exceed them.
               </p>
@@ -731,14 +712,14 @@ const HomePage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 {/* Card 1 */}
                 <div className="p-6 rounded-3xl border border-gray-100 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300">
-                  
+
                   <h3 className="font-bold text-xl mb-3 text-gray-900">Commitment To Innovation</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">We strive to continuously innovate, incorporating modern tech into our workflow.</p>
                 </div>
-                
+
                 {/* Card 2 */}
                 <div className="p-6 rounded-3xl border border-gray-100 shadow-xl bg-white hover:shadow-2xl transition-shadow duration-300">
-                  
+
                   <h3 className="font-bold text-xl mb-3 text-gray-900">Customer-Centric Focus</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">We aim to build long-lasting relationships by providing exceptional service.</p>
                 </div>
@@ -746,7 +727,7 @@ const HomePage = () => {
 
               {/* Call to Action */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
-                <Link 
+                <Link
                   href="/about"
                   className="bg-yellow-400 text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-500 transition-colors flex items-center gap-2"
                 >
@@ -757,48 +738,48 @@ const HomePage = () => {
 
             {/* RIGHT COLUMN: Image Collage */}
             <div className="order-1 lg:order-2 relative">
-               {/* Grid */}
-               <div className="grid grid-cols-2 gap-4">
-                 <div className="relative h-64 sm:h-80 rounded-tl-[60px] rounded-br-[60px] overflow-hidden">
-                    <Image src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Worker" />
-                 </div>
-                 <div className="relative h-64 sm:h-80 rounded-tr-[60px] rounded-bl-[60px] overflow-hidden mt-8 md:mt-12">
-                    {/* FIXED: Replaced broken Engineer image with a reliable one */}
-                    <Image src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Engineer" />
-                 </div>
-                 <div className="relative h-64 sm:h-80 rounded-bl-[60px] rounded-tr-[60px] overflow-hidden -mt-8 md:-mt-12">
-                    <Image src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Circuit" />
-                 </div>
-                 <div className="relative h-64 sm:h-80 rounded-br-[60px] rounded-tl-[60px] overflow-hidden">
-                    <Image src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Panel" />
-                 </div>
-               </div>
-               
-               {/* Center Rotating Logo */}
-               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                 <div className="relative group cursor-pointer">
-                   {/* Spinning Text/Ring */}
-                   <div className="w-32 h-32 md:w-40 md:h-40 bg-yellow-400 rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shadow-2xl border-4 border-white">
-                      {/* Text Path or simple ring effect */}
-                      <svg className="w-full h-full absolute inset-0 text-black/10" viewBox="0 0 100 100">
-                         <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
-                         <text className="text-[10px] font-bold uppercase tracking-widest fill-current">
-                           <textPath href="#curve">
-                             Irk Innovations • Excellence • Innovation •
-                           </textPath>
-                         </text>
-                      </svg>
-                   </div>
-                   
-                   <div className="absolute inset-0 flex items-center justify-center">
-                     <div className="w-20 h-20 md:w-27 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
-                       <div className="w-full h-full relative">
+              {/* Grid */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative h-64 sm:h-80 rounded-tl-[60px] rounded-br-[60px] overflow-hidden">
+                  <Image src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Worker" />
+                </div>
+                <div className="relative h-64 sm:h-80 rounded-tr-[60px] rounded-bl-[60px] overflow-hidden mt-8 md:mt-12">
+                  {/* FIXED: Replaced broken Engineer image with a reliable one */}
+                  <Image src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Engineer" />
+                </div>
+                <div className="relative h-64 sm:h-80 rounded-bl-[60px] rounded-tr-[60px] overflow-hidden -mt-8 md:-mt-12">
+                  <Image src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Circuit" />
+                </div>
+                <div className="relative h-64 sm:h-80 rounded-br-[60px] rounded-tl-[60px] overflow-hidden">
+                  <Image src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Panel" />
+                </div>
+              </div>
+
+              {/* Center Rotating Logo */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                <div className="relative group cursor-pointer">
+                  {/* Spinning Text/Ring */}
+                  <div className="w-32 h-32 md:w-40 md:h-40 bg-yellow-400 rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shadow-2xl border-4 border-white">
+                    {/* Text Path or simple ring effect */}
+                    <svg className="w-full h-full absolute inset-0 text-black/10" viewBox="0 0 100 100">
+                      <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
+                      <text className="text-[10px] font-bold uppercase tracking-widest fill-current">
+                        <textPath href="#curve">
+                          Irk Innovations • Excellence • Innovation •
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
+
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-27 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
+                      <div className="w-full h-full relative">
                         <Image src="/IRKLogo.jpg" alt="IRK Logo" fill className="object-cover scale-125" />
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -812,7 +793,7 @@ const HomePage = () => {
         <Circle strokeWidth={1} size={400} className="absolute -bottom-32 -right-32 text-white opacity-5 pointer-events-none" />
         <Square strokeWidth={1} size={200} className="absolute top-20 -right-16 text-white opacity-5 pointer-events-none rotate-45" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
               Hassle-Free Estimates Just a<br />Click Away
@@ -848,7 +829,7 @@ const HomePage = () => {
       {/* ================= PROJECTS SECTION ================= */}
       <section id="projects" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
@@ -872,8 +853,8 @@ const HomePage = () => {
           </div>
 
           <div className="text-center">
-            <Link 
-              href="/projects" 
+            <Link
+              href="/projects"
               className="inline-flex items-center gap-2 bg-emerald-600 text-white px-10 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-all duration-300 shadow-lg"
             >
               View All Projects
@@ -887,7 +868,7 @@ const HomePage = () => {
       {/* ================= FAQ ================= */}
       <section id="faq" className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
@@ -900,28 +881,28 @@ const HomePage = () => {
 
           <div className="space-y-4">
             {[
-              { 
-                q: "What types of electronics do you manufacture?", 
-                a: "We manufacture a wide range of electronics including embedded systems, IoT devices, industrial controllers, consumer electronics, and custom PCB assemblies. From concept to mass production." 
+              {
+                q: "What types of electronics do you manufacture?",
+                a: "We manufacture a wide range of electronics including embedded systems, IoT devices, industrial controllers, consumer electronics, and custom PCB assemblies. From concept to mass production."
               },
-              { 
-                q: "What is your typical turnaround time?", 
-                a: "Turnaround time varies by project complexity. Prototypes typically take 1-2 months, while bulk manufacturing timelines depend on order volume. We provide detailed timelines during consultation." 
+              {
+                q: "What is your typical turnaround time?",
+                a: "Turnaround time varies by project complexity. Prototypes typically take 1-2 months, while bulk manufacturing timelines depend on order volume. We provide detailed timelines during consultation."
               },
-              { 
-                q: "Do you offer warranty on your products?", 
-                a: "Yes, all our products come with comprehensive warranty coverage. The duration varies based on product type and application. We also offer extended warranty options and ongoing support." 
+              {
+                q: "Do you offer warranty on your products?",
+                a: "Yes, all our products come with comprehensive warranty coverage. The duration varies based on product type and application. We also offer extended warranty options and ongoing support."
               },
-              { 
-                q: "Can you handle international shipping?", 
-                a: "Absolutely! We have experience shipping globally and can handle all customs, documentation, and logistics. We work with trusted shipping partners to ensure safe delivery worldwide." 
+              {
+                q: "Can you handle international shipping?",
+                a: "Absolutely! We have experience shipping globally and can handle all customs, documentation, and logistics. We work with trusted shipping partners to ensure safe delivery worldwide."
               }
             ].map((faq, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="bg-white border-2 border-gray-200 rounded-xl hover:border-emerald-500 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-lg"
               >
-                <button 
+                <button
                   onClick={() => toggleFaq(i)}
                   className="w-full flex justify-between items-center p-6 text-left"
                 >
@@ -936,12 +917,11 @@ const HomePage = () => {
                     )}
                   </div>
                 </button>
-                <div 
-                  className={`transition-all duration-500 ease-in-out ${
-                    expandedFaq === i 
-                      ? 'max-h-96 opacity-100' 
+                <div
+                  className={`transition-all duration-500 ease-in-out ${expandedFaq === i
+                      ? 'max-h-96 opacity-100'
                       : 'max-h-0 opacity-0'
-                  } overflow-hidden`}
+                    } overflow-hidden`}
                 >
                   <div className="px-6 pb-6 text-gray-600 leading-relaxed text-lg border-t-2 border-gray-100 pt-4">
                     {faq.a}
@@ -958,113 +938,113 @@ const HomePage = () => {
       <div className="py-6 bg-white">
         <section className="relative py-8 bg-black overflow-hidden mx-4 md:mx-8 lg:mx-12 rounded-[40px] shadow-2xl isolate">
           {/* Parallax Background Image */}
-          <div 
+          <div
             className="absolute inset-0 bg-fixed bg-cover bg-center opacity-40 pointer-events-none -z-10"
-            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?q=80&w=2000&auto=format&fit=crop")' }} 
+            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?q=80&w=2000&auto=format&fit=crop")' }}
           ></div>
-          
+
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent -z-10"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            
-            {/* LEFT: Text Content */}
-            <div className="text-white">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                <p className="text-yellow-400 font-bold uppercase tracking-wider text-sm">CONTACT US</p>
-              </div>
-              
-              <h2 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
-                We're here to answer your<br />
-                <span className="text-yellow-400">questions and help</span>
-              </h2>
-              
-              <p className="text-gray-300 text-base leading-relaxed mb-8 w-full md:w-5/6">
-                Whether you're planning a new project or need emergency support, we're available to provide fast and reliable assistance.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                <Link 
-                  href="/contact" 
-                  className="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold text-base hover:bg-yellow-500 transition-colors flex items-center gap-2"
-                >
-                  Contact Us <ArrowRight size={18} />
-                </Link>
-                
-                <span className="text-gray-400 font-bold hidden sm:block">OR</span>
+              {/* LEFT: Text Content */}
+              <div className="text-white">
+                <div className="inline-flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
+                  <p className="text-yellow-400 font-bold uppercase tracking-wider text-sm">CONTACT US</p>
+                </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-black shadow-[0_0_15px_rgba(250,204,21,0.5)]">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">CALL US ANY TIME</p>
-                    <p className="text-white font-black text-lg text-nowrap">+94 76 537 6106</p>
+                <h2 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
+                  We're here to answer your<br />
+                  <span className="text-yellow-400">questions and help</span>
+                </h2>
+
+                <p className="text-gray-300 text-base leading-relaxed mb-8 w-full md:w-5/6">
+                  Whether you're planning a new project or need emergency support, we're available to provide fast and reliable assistance.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                  <Link
+                    href="/contact"
+                    className="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold text-base hover:bg-yellow-500 transition-colors flex items-center gap-2"
+                  >
+                    Contact Us <ArrowRight size={18} />
+                  </Link>
+
+                  <span className="text-gray-400 font-bold hidden sm:block">OR</span>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-black shadow-[0_0_15px_rgba(250,204,21,0.5)]">
+                      <Phone size={20} />
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">CALL US ANY TIME</p>
+                      <p className="text-white font-black text-lg text-nowrap">+94 76 537 6106</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* RIGHT: Contact Form (Moved from Hero) */}
-            <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/20">
-                <h3 className="text-2xl font-black text-white mb-6">
-                  Get a Quote Now!
-                </h3>
-                  
-                <form onSubmit={handleContactSubmit} className="space-y-4">
-                  <input 
-                    type="text" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleContactChange}
-                    required
-                    placeholder="Your Name" 
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
-                  />
-                  <input 
-                    type="email" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleContactChange}
-                    required
-                    placeholder="Your Email" 
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
-                  />
-                  <input 
-                    type="tel" 
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleContactChange}
-                    required
-                    placeholder="Phone Number" 
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
-                  />
-                  <textarea 
-                    name="message"
-                    value={formData.message}
-                    onChange={handleContactChange}
-                    required
-                    placeholder="Your Message" 
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium resize-none transition-colors"
-                  ></textarea>
-                  <button 
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-yellow-400 text-black py-4 rounded-lg font-bold hover:bg-yellow-500 transition-colors shadow-lg disabled:opacity-50"
-                  >
-                    {loading ? 'Sending...' : 'Send Message'}
-                  </button>
-                </form>
+              {/* RIGHT: Contact Form (Moved from Hero) */}
+              <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/20">
+                  <h3 className="text-2xl font-black text-white mb-6">
+                    Get a Quote Now!
+                  </h3>
+
+                  <form onSubmit={handleContactSubmit} className="space-y-4">
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleContactChange}
+                      required
+                      placeholder="Your Name"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleContactChange}
+                      required
+                      placeholder="Your Email"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                    />
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleContactChange}
+                      required
+                      placeholder="Phone Number"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                    />
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleContactChange}
+                      required
+                      placeholder="Your Message"
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium resize-none transition-colors"
+                    ></textarea>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full bg-yellow-400 text-black py-4 rounded-lg font-bold hover:bg-yellow-500 transition-colors shadow-lg disabled:opacity-50"
+                    >
+                      {loading ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </form>
+                </div>
               </div>
-            </div>
 
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
 
       {/* ================= BLOG CTA ================= */}
@@ -1077,28 +1057,28 @@ const HomePage = () => {
             End-to-end electronics design and manufacturing services built for quality, efficiency, and long-term reliability.
           </p>
           <div className="inline-flex items-center group">
-  {/* Highlighted Main Text */}
-  <div className="flex flex-col">
-    <span className="text-3xl font-black tracking-tighter text-emerald-950 uppercase italic leading-none">
-      IRK
-    </span>
-    {/* Underline wenuwata podi dot indicator ekak use karamu highlight ekata */}
-    <div className="w-2 h-2 bg-yellow-400 rounded-full mt-1.5 opacity-80"></div>
-  </div>
+            {/* Highlighted Main Text */}
+            <div className="flex flex-col">
+              <span className="text-3xl font-black tracking-tighter text-emerald-950 uppercase italic leading-none">
+                IRK
+              </span>
+              {/* Underline wenuwata podi dot indicator ekak use karamu highlight ekata */}
+              <div className="w-2 h-2 bg-yellow-400 rounded-full mt-1.5 opacity-80"></div>
+            </div>
 
-  {/* Vertical Technical Divider */}
-  <div className="h-10 w-[2px] bg-gray-200 mx-4 rotate-12 transition-colors group-hover:bg-yellow-400"></div>
+            {/* Vertical Technical Divider */}
+            <div className="h-10 w-[2px] bg-gray-200 mx-4 rotate-12 transition-colors group-hover:bg-yellow-400"></div>
 
-  {/* Supporting Brand Text */}
-  <div className="flex flex-col justify-center">
-    <span className="text-sm font-bold tracking-[0.3em] text-emerald-700/70 uppercase">
-      Innovations
-    </span>
-    <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5">
-      Engineering Solutions
-    </span>
-  </div>
-</div>
+            {/* Supporting Brand Text */}
+            <div className="flex flex-col justify-center">
+              <span className="text-sm font-bold tracking-[0.3em] text-emerald-700/70 uppercase">
+                Innovations
+              </span>
+              <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mt-0.5">
+                Engineering Solutions
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1106,7 +1086,7 @@ const HomePage = () => {
       <Footer />
 
       {/* Scroll To Top Button */}
-      <button 
+      <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className="fixed bottom-8 right-8 z-50 bg-emerald-600 text-white p-4 rounded-full shadow-2xl hover:bg-emerald-700 hover:scale-110 transition-all duration-300"
         title="Back to Top"
