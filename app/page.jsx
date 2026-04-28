@@ -9,6 +9,7 @@ import ProjectCard from '../components/ProjectCard';
 import NavBar from '../components/NavBar';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
+import SolutionsSection from '../components/SolutionsSection';
 import { motion } from 'framer-motion';
 import {
   CheckCircle, ArrowRight, Phone, Mail, MapPin,
@@ -423,89 +424,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ================= SERVICES SECTION ================= */}
-      <section id="services" className="py-24 bg-gray-50 relative overflow-hidden">
-        {/* Subtle Background Pattern */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-yellow-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-emerald-600/5 rounded-full blur-3xl"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-              <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">OUR EXPERTISE</p>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-              Comprehensive Solutions for <br />
-              <span className="text-yellow-500">Modern Challenges</span>
-            </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              We combine technical expertise with innovative thinking to deliver high-quality electronics engineering services tailored to your specific needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Engineering Consultation",
-                icon: <Users />,
-                description: "Expert guidance in embedded product design, feasibility studies, and manufacturing strategies."
-              },
-              {
-                title: "System Architecture & PCB Design",
-                icon: <CircuitBoard />,
-                description: "Professional-grade PCB layout and system architecture design optimized for performance and cost."
-              },
-              {
-                title: "Cost & BOM Optimization",
-                icon: <TrendingUp />,
-                description: "Strategic component selection and Bill of Materials optimization to maximize value."
-              },
-              {
-                title: "DFM & DFA Analysis",
-                icon: <Settings />,
-                description: "Design for Manufacturing and Assembly reviews to ensure seamless production scalability."
-              },
-              {
-                title: "Product Testing & QA",
-                icon: <Shield />,
-                description: "Comprehensive testing protocols including functional, environmental, and reliability testing."
-              },
-              {
-                title: "Bulk Manufacturing",
-                icon: <Factory />,
-                description: "End-to-end manufacturing services from prototyping to high-volume production waves."
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
-              >
-                {/* Top Accent Line */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-emerald-500 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors duration-300">
-                  {React.cloneElement(item.icon, {
-                    size: 28,
-                    className: "text-emerald-600 group-hover:text-white transition-colors duration-300",
-                    strokeWidth: 2
-                  })}
-                </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 leading-relaxed text-sm">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
+      {/* ================= SOLUTIONS SECTION ================= */}
+      <SolutionsSection />
 
       {/* ================= SPECIALIZED SERVICES (Green Section) ================= */}
       <section className="py-24 bg-[#143d2d] text-white relative overflow-hidden font-sans">
@@ -658,8 +578,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ================= WHY CHOOSE US ================= */}
-      <section className="py-20 bg-white">
+      {/* ================= WHY CHOOSE US (RE-DESIGNED) ================= */}
+      <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center mb-16">
@@ -667,41 +587,62 @@ const HomePage = () => {
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">WHY CHOOSE US</p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900">
-              Awards and Certifications that<br />Reflect Our Excellence
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+              Awards and Certifications that<br />Reflect <span className="text-yellow-400">Our Excellence</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: <Award className="text-yellow-500" size={48} />,
                 title: "Licensed Company",
-                description: "Certified and registered electronics manufacturing company"
+                description: "Certified and registered electronics manufacturing company",
+                color: "emerald"
               },
               {
-                icon: <Shield className="text-yellow-500" size={48} />,
                 title: "Insured Service",
-                description: "All projects covered with comprehensive warranty"
+                description: "All projects covered with comprehensive warranty",
+                color: "yellow"
               },
               {
-                icon: <Star className="text-yellow-500" size={48} />,
                 title: "Certified Technicians",
-                description: "Highly trained and certified electronics engineers"
+                description: "Highly trained and certified electronics engineers",
+                color: "emerald"
               },
               {
-                icon: <ThumbsUp className="text-yellow-500" size={48} />,
                 title: "Trusted Experts",
-                description: "Over 10 years of industry experience and expertise"
+                description: "Over 10 years of industry experience and expertise",
+                color: "yellow"
               }
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-yellow-100">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-black text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
-              </div>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -12 }}
+                className="relative group p-10 rounded-[40px] bg-gray-50 border border-gray-100 transition-all duration-500 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)]"
+              >
+                {/* Background Number Accent */}
+                <span className="absolute top-6 right-8 text-6xl font-black text-gray-200/40 group-hover:text-emerald-500/10 transition-colors duration-500 select-none">
+                  0{index + 1}
+                </span>
+
+                {/* Left Accent Bar */}
+                <div className={`absolute left-0 top-1/4 bottom-1/4 w-1.5 rounded-r-full transition-all duration-500 transform scale-y-0 group-hover:scale-y-100 ${item.color === 'emerald' ? 'bg-emerald-600' : 'bg-yellow-400'
+                  }`}></div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="text-gray-500 leading-relaxed font-medium">
+                  {item.description}
+                </p>
+
+                {/* Bottom Shine Effect */}
+                <div className="absolute inset-0 rounded-[40px] border-2 border-transparent group-hover:border-emerald-500/10 transition-all duration-500"></div>
+              </motion.div>
             ))}
           </div>
 
@@ -722,7 +663,7 @@ const HomePage = () => {
               </div>
 
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                Our Goals to Deliver top-notch <span className="text-yellow-400">Electrical Solutions</span>
+                Our Goals to Deliver top-notch <span className="text-emerald-600">Electrical Solutions</span>
               </h2>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
@@ -837,7 +778,7 @@ const HomePage = () => {
 
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Hassle-Free Estimates Just a<br />Click Away
+              Hassle-Free Estimates Just a<br /><span className="text-yellow-400">Click Away</span>
             </h2>
             <p className="text-xl text-white/90">
               Simple, transparent process from start to finish
@@ -874,7 +815,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">OUR PORTFOLIO</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-              Discover Our Latest Insights and<br />Expert Projects
+              Discover Our Latest Insights and<br /><span className="text-emerald-600">Expert Projects</span>
             </h2>
           </div>
 
@@ -913,7 +854,7 @@ const HomePage = () => {
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">FAQ</p>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900">
-              Common Questions About Our<br />Electronics Services
+              Common Questions About Our<br /><span className="text-yellow-400">Electronics Services</span>
             </h2>
           </div>
 
@@ -1089,7 +1030,7 @@ const HomePage = () => {
       <section className="py-20 bg-linear-to-br from-emerald-700 to-emerald-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Discover Our Latest Insights and<br />Expert Advice
+            Discover Our Latest Insights and<br /><span className="text-yellow-400">Expert Advice</span>
           </h2>
           <p className="text-xl mb-10 text-white/90">
             End-to-end electronics design and manufacturing services built for quality, efficiency, and long-term reliability.

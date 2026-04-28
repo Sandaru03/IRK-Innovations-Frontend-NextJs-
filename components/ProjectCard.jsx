@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, priority = false }) => {
   return (
     <div className="group flex flex-col h-full bg-transparent">
       
@@ -15,6 +15,7 @@ const ProjectCard = ({ project }) => {
             src={project.mainImage}
             alt={project.title}
             fill
+            priority={priority}
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             onError={(e) => {
               // fallback to local image if Supabase or remote image fails
