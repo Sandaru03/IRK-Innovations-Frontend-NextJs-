@@ -85,7 +85,7 @@ const ServicesPage = React.memo(() => {
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
 
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-            Comprehensive <span className="text-yellow-400">Electronics</span> <br/>
+            Comprehensive <span className="text-yellow-400 underline decoration-white/10">Electronics</span> <br/>
             Engineering Services
           </h1>
           <p className="text-emerald-100 text-lg max-w-2xl mx-auto leading-relaxed">

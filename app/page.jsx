@@ -274,7 +274,7 @@ const HomePage = () => {
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
                   Your Trusted Partner for
-                  <span className="block text-yellow-400">All Your Electronics Needs</span>
+                  <span className="block text-yellow-400 underline decoration-white/10">All Your Electronics Needs</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-xl">

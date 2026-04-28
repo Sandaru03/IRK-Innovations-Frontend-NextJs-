@@ -78,7 +78,7 @@ const ContactPage = () => {
         
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-            Get In <span className="text-yellow-400">Touch</span>
+            Get In <span className="text-yellow-400 underline decoration-white/10">Touch</span>
           </h1>
           <p className="text-emerald-100 text-lg max-w-2xl mx-auto leading-relaxed">
             Have a project in mind or need technical consultation? Our engineering team is ready to help you innovate.
