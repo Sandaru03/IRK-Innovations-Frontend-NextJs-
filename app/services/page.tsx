@@ -218,7 +218,7 @@ const ServicesPage = React.memo(() => {
                 <Globe className="absolute -right-20 -bottom-20 text-white opacity-5" size={400} />
                 <div className="relative z-10">
                   <div className="bg-yellow-400 w-16 h-16 rounded-2xl flex items-center justify-center text-emerald-950 mb-8 shadow-xl shadow-yellow-400/20">
-                    <Factory size={32} />
+                    <Globe size={32} />
                   </div>
                   <h3 className="text-3xl font-black mb-6">Global Tech Sourcing</h3>
                   <p className="text-emerald-100 mb-8 text-lg leading-relaxed">
