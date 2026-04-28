@@ -9,6 +9,7 @@ import ProjectCard from '../components/ProjectCard';
 import NavBar from '../components/NavBar';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
+import { motion } from 'framer-motion';
 import {
   CheckCircle, ArrowRight, Phone, Mail, MapPin,
   ChevronLeft, ChevronRight, Zap, Award, Users, Target,
@@ -312,8 +313,8 @@ const HomePage = () => {
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={`h-1 rounded-full transition-all duration-300 ${idx === currentSlide
-                  ? 'w-12 bg-yellow-400'
-                  : 'w-8 bg-white/40 hover:bg-white/60'
+                ? 'w-12 bg-yellow-400'
+                : 'w-8 bg-white/40 hover:bg-white/60'
                 }`}
             />
           ))}
@@ -511,9 +512,29 @@ const HomePage = () => {
 
         {/* Background Pattern */}
         {/* User Patterns - Transparent SVGs */}
-        <Circle strokeWidth={1} size={300} className="absolute -top-24 -left-24 text-white opacity-5 pointer-events-none" />
-        <Square strokeWidth={1} size={400} className="absolute -bottom-48 -right-24 text-white opacity-5 pointer-events-none rotate-12" />
-        <Hexagon strokeWidth={1} size={200} className="absolute top-1/3 -right-20 text-white opacity-5 pointer-events-none rotate-45" />
+        <motion.div
+          animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-24 -left-24 text-white opacity-5 pointer-events-none"
+        >
+          <Circle strokeWidth={1} size={300} />
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 30, 0], rotate: [12, -5, 12] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-48 -right-24 text-white opacity-5 pointer-events-none"
+        >
+          <Square strokeWidth={1} size={400} />
+        </motion.div>
+
+        <motion.div
+          animate={{ x: [0, 20, 0], rotate: [45, 90, 45] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 -right-20 text-white opacity-5 pointer-events-none"
+        >
+          <Hexagon strokeWidth={1} size={200} />
+        </motion.div>
 
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 border-r border-b border-white/20 rounded-br-[100px]"></div>
@@ -787,11 +808,31 @@ const HomePage = () => {
       </section>
 
       {/* ================= PROCESS / ESTIMATES (Green) ================= */}
-      <section className="py-20 bg-linear-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden">
+      <section className="pt-20 pb-10 bg-linear-to-br from-emerald-700 to-emerald-900 text-white relative overflow-hidden">
         {/* Background Patterns - Transparent SVGs */}
-        <Activity strokeWidth={1} size={300} className="absolute -top-20 -left-20 text-white opacity-5 pointer-events-none -rotate-12" />
-        <Circle strokeWidth={1} size={400} className="absolute -bottom-32 -right-32 text-white opacity-5 pointer-events-none" />
-        <Square strokeWidth={1} size={200} className="absolute top-20 -right-16 text-white opacity-5 pointer-events-none rotate-45" />
+        <motion.div
+          animate={{ x: [-10, 10, -10], y: [0, -20, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 text-white opacity-5 pointer-events-none -rotate-12"
+        >
+          <Activity strokeWidth={1} size={300} />
+        </motion.div>
+
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.08, 0.05] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-32 -right-32 text-white opacity-5 pointer-events-none"
+        >
+          <Circle strokeWidth={1} size={400} />
+        </motion.div>
+
+        <motion.div
+          animate={{ rotate: [45, 225, 45] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-20 -right-16 text-white opacity-5 pointer-events-none"
+        >
+          <Square strokeWidth={1} size={200} />
+        </motion.div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center mb-16">
@@ -803,17 +844,14 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-4">
             {[
-              { step: "01", title: "Consultation", desc: "Understanding your requirements", icon: <Users /> },
-              { step: "02", title: "Design", desc: "Architecture & PCB design", icon: <CircuitBoard /> },
-              { step: "03", title: "Manufacturing", desc: "Bulk production with QA", icon: <Factory /> },
-              { step: "04", title: "Delivery", desc: "Installation & support", icon: <Zap /> }
+              { step: "01", title: "Consultation", desc: "Understanding your requirements" },
+              { step: "02", title: "Design", desc: "Architecture & PCB design" },
+              { step: "03", title: "Manufacturing", desc: "Bulk production with QA" },
+              { step: "04", title: "Delivery", desc: "Installation & support" }
             ].map((item, index) => (
               <div key={index} className="text-center">
-                <div className="w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                  {React.cloneElement(item.icon, { size: 40, className: "text-gray-900", strokeWidth: 2.5 })}
-                </div>
                 <div className="text-6xl font-black text-white/20 mb-3">{item.step}</div>
                 <h3 className="text-2xl font-black mb-2">{item.title}</h3>
                 <p className="text-white/80">{item.desc}</p>
@@ -919,8 +957,8 @@ const HomePage = () => {
                 </button>
                 <div
                   className={`transition-all duration-500 ease-in-out ${expandedFaq === i
-                      ? 'max-h-96 opacity-100'
-                      : 'max-h-0 opacity-0'
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
                     } overflow-hidden`}
                 >
                   <div className="px-6 pb-6 text-gray-600 leading-relaxed text-lg border-t-2 border-gray-100 pt-4">
