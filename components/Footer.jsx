@@ -81,8 +81,14 @@ const Footer = () => {
 
         </div>
 
-        <div className="mt-16 pt-8 border-t border-zinc-800/50 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-zinc-600">
+        <div className="mt-16 pt-8 border-t border-zinc-800/50 flex flex-col items-center text-center text-xs uppercase tracking-widest text-zinc-600 gap-3">
            <span>IRK Innovations © All Rights Reserved - {new Date().getFullYear()}</span>
+           <div className="flex items-center gap-1">
+             Developed By 
+             <a href="https://www.syntechcraft.com/" target="_blank" rel="noopener noreferrer" className="text-yellow-500 hover:text-yellow-400 transition-colors font-bold ml-1">
+               Syntechcraft
+             </a>
+           </div>
         </div>
       </div>
       
