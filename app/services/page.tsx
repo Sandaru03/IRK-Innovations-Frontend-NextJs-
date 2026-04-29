@@ -74,7 +74,7 @@ const ServicesPage = React.memo(() => {
         
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
 
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
             Comprehensive <span className="text-yellow-400 underline decoration-white/10">Electronics</span> <br/>
             Engineering Services
           </h1>
@@ -119,7 +119,7 @@ const ServicesPage = React.memo(() => {
 <section className="py-24 bg-gray-50 border-y border-gray-200">
   <div className="max-w-7xl mx-auto px-4">
     <div className="text-center mb-16">
-      <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">Product Development Lifecycle</h2>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mb-4">Product Development Lifecycle</h2>
       <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
     </div>
 
@@ -187,7 +187,7 @@ const ServicesPage = React.memo(() => {
             {/* Consultation Points */}
             <div className="relative">
               <div className="absolute -top-10 -left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-3xl"></div>
-              <h2 className="text-4xl font-black text-gray-900 mb-8 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-8 leading-tight">
                 Expert <span className="text-emerald-700">Engineering</span><br/>Consultancy
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

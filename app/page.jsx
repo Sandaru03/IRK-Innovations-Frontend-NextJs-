@@ -207,7 +207,7 @@ const HomePage = () => {
     <div className="font-sans text-gray-800 bg-white min-h-screen">
 
       {/* ================= HERO SLIDER SECTION ================= */}
-      <section id="home" className="relative h-[700px] pt-32 overflow-hidden">
+      <section id="home" className="relative h-screen min-h-[600px] pt-20 md:pt-32 overflow-hidden">
 
         {/* Slider Images */}
         {slides.map((slide, index) => (
@@ -244,13 +244,13 @@ const HomePage = () => {
         {/* Hero Content */}
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-20 md:mt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-8 md:mt-32">
 
               {/* Left: Text Content */}
               <div className="text-white">
 
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
                   Your Trusted Partner for
                   <span className="block text-yellow-400 underline decoration-white/10">All Your Electronics Needs</span>
                 </h1>
@@ -376,7 +376,7 @@ const HomePage = () => {
                 <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">ABOUT IRK INNOVATIONS</p>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
                 Complete Electronics Services for
                 <span className="block text-emerald-600">Every Industry</span>
               </h2>
@@ -451,7 +451,7 @@ const HomePage = () => {
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
               <p className="text-yellow-400 font-bold uppercase tracking-wider text-sm">Our Services</p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 leading-tight">
               Specialized Electrical Services<br />
               for <span className="text-yellow-400">Every Industry</span>
             </h2>
@@ -565,7 +565,7 @@ const HomePage = () => {
               <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
               <p className="text-yellow-600 font-bold uppercase tracking-wider text-sm">WHY CHOOSE US</p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
               Awards and Certifications that<br />Reflect <span className="text-yellow-400">Our Excellence</span>
             </h2>
           </div>
@@ -600,7 +600,7 @@ const HomePage = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -12 }}
-                className="relative group p-10 rounded-[40px] bg-gray-50 border border-gray-100 transition-all duration-500 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)]"
+                className="relative group p-6 md:p-10 rounded-[40px] bg-gray-50 border border-gray-100 transition-all duration-500 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)]"
               >
                 {/* Background Number Accent */}
                 <span className="absolute top-6 right-8 text-6xl font-black text-gray-200/40 group-hover:text-emerald-500/10 transition-colors duration-500 select-none">
@@ -640,7 +640,7 @@ const HomePage = () => {
                 <p className="text-gray-900 font-bold uppercase tracking-wider text-sm">OUR GOALS</p>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
                 Our Goals to Deliver top-notch <span className="text-emerald-600">Electrical Solutions</span>
               </h2>
 

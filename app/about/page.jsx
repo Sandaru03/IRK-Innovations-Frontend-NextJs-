@@ -128,7 +128,7 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
               About <span className="text-yellow-400 underline decoration-white/10">IRK Innovations</span>
             </h1>
             <p className="text-emerald-100 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
@@ -144,8 +144,8 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300">
-                <div className="text-4xl md:text-5xl font-black text-emerald-800 mb-2 group-hover:text-yellow-500 transition-colors">
+              <div key={i} className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-emerald-800 mb-2 group-hover:text-yellow-500 transition-colors">
                   <AnimatedCounter end={stat.number} suffix={stat.suffix} />
                 </div>
                 <div className="text-xs md:text-sm text-gray-500 uppercase tracking-widest font-bold">
@@ -187,7 +187,7 @@ const AboutPage = () => {
                 <span className="w-2 h-2 rounded-full bg-yellow-600"></span>
                 <h2 className="text-yellow-600 font-bold uppercase tracking-widest text-sm">Our Mission</h2>
               </div>
-              <h3 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
                 Empowering businesses through <span className="text-emerald-700">innovative electronics</span>
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed">
@@ -212,13 +212,13 @@ const AboutPage = () => {
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">Values that Drive Us</h2>
+             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-4">Values that Drive Us</h2>
              <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, i) => (
-              <div key={i} className="group p-10 bg-gray-50 rounded-[40px] border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-2xl transition-all duration-500">
+              <div key={i} className="group p-6 md:p-10 bg-gray-50 rounded-[40px] border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-2xl transition-all duration-500">
                 <div className="relative w-20 h-20 mb-8">
                   {/* Animated background glow - Premium Layer */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-[32px] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>

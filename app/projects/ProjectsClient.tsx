@@ -35,7 +35,7 @@ const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
 
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
 
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight uppercase tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 leading-tight uppercase tracking-tighter">
             Our <span className="text-yellow-400 underline decoration-white/10">Projects</span>
           </h1>
           <p className="text-emerald-100 text-lg max-w-2xl mx-auto leading-relaxed">

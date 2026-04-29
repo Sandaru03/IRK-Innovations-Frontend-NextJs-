@@ -70,7 +70,7 @@ const ContactPage = () => {
         </div>
         
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
             Get In <span className="text-yellow-400 underline decoration-white/10">Touch</span>
           </h1>
           <p className="text-emerald-100 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -92,7 +92,7 @@ const ContactPage = () => {
             <div className="space-y-6">
               {contactInfo.map((item, i) => (
                 <a href={item.link} key={i} className="flex gap-6 p-6 bg-gray-50 rounded-4xl border border-gray-100 hover:border-emerald-200 hover:bg-white hover:shadow-xl transition-all group">
-                  <div className="bg-emerald-900 text-yellow-400 p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform">
+                  <div className="bg-emerald-900 text-yellow-400 p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform h-fit">
                     {item.icon}
                   </div>
                   <div>
@@ -119,7 +119,7 @@ const ContactPage = () => {
 
           {/* FORM SECTION (7 Columns) */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-gray-100 relative">
+            <div className="bg-white rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-2xl border border-gray-100 relative">
               <div className="flex items-center gap-4 mb-10">
                 <div className="bg-emerald-100 p-3 rounded-xl text-emerald-700">
                   <MessageSquare size={28} />
