@@ -251,7 +251,7 @@ const AboutPage = () => {
               <p className="text-emerald-100 opacity-80 mb-8">
                 Our combination of technical depth and manufacturing agility makes us the preferred partner for complex projects.
               </p>
-              <Link href="/projects" className="inline-flex items-center gap-2 bg-yellow-400 text-emerald-950 font-black px-8 py-4 rounded-2xl hover:bg-white transition-all">
+              <Link href="/projects" className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-emerald-950 px-10 py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-yellow-400/20">
                 View Our Portfolio <ArrowRight size={20} />
               </Link>
             </div>
@@ -299,10 +299,9 @@ const AboutPage = () => {
               Whether you have a full spec or just a rough idea, we have the expertise to bring it to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="bg-emerald-900 text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-emerald-800 transition-all shadow-xl shadow-emerald-900/20">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-emerald-700 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-emerald-900/20">
                 Get in Touch
               </Link>
-            
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import JsonLd from "../components/JsonLd";
 import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import ScrollToTop from "../components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -85,6 +86,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ScrollToTop />
         <JsonLd />
         <ToastContainer position="bottom-right" theme="dark" />
       </body>

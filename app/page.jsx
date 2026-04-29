@@ -262,14 +262,14 @@ const HomePage = () => {
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
                   <Link
                     href="/services"
-                    className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-all duration-300 shadow-lg"
+                    className="inline-flex items-center justify-center gap-2 bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-emerald-900/20"
                   >
                     Our Services
                     <ArrowRight size={20} />
                   </Link>
                   <Link
                     href="/projects"
-                    className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-gray-900 transition-all duration-300"
+                    className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 hover:bg-white hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95"
                   >
                     Our Projects
                   </Link>
@@ -391,7 +391,7 @@ const HomePage = () => {
 
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-bold hover:bg-yellow-500 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-emerald-950 px-10 py-4 rounded-2xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-yellow-400/20"
               >
                 Learn More
                 <ArrowRight size={20} />
@@ -669,7 +669,7 @@ const HomePage = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
                 <Link
                   href="/about"
-                  className="bg-yellow-400 text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-500 transition-colors flex items-center gap-2"
+                  className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-emerald-950 px-10 py-4 rounded-2xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-yellow-400/20"
                 >
                   Know More <ArrowRight size={20} />
                 </Link>
@@ -991,9 +991,13 @@ const HomePage = () => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-yellow-400 text-black py-4 rounded-lg font-bold hover:bg-yellow-500 transition-colors shadow-lg disabled:opacity-50"
+                      className="w-full inline-flex items-center justify-center gap-3 bg-yellow-400 text-emerald-950 py-4 rounded-xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] disabled:opacity-70 shadow-lg shadow-yellow-400/20 group"
                     >
-                      {loading ? 'Sending...' : 'Send Message'}
+                      {loading ? (
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-emerald-950 border-t-transparent group-hover:border-white"></div>
+                      ) : (
+                        <>Send Message <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -1041,18 +1045,7 @@ const HomePage = () => {
 
       {/* ================= FOOTER ================= */}
       {/* Footer removed from here */}
-
-      {/* Scroll To Top Button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 z-50 bg-emerald-600 text-white p-4 rounded-full shadow-2xl hover:bg-emerald-700 hover:scale-110 transition-all duration-300"
-        title="Back to Top"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
-
+      {/* Scroll To Top Button removed - now global */}
     </div>
   );
 };

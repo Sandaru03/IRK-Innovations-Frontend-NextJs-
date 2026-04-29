@@ -95,7 +95,7 @@ const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
                 <p className="text-gray-500 mb-8 max-w-xs mx-auto">We couldn't find any projects matching your current search or filter criteria.</p>
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="bg-emerald-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-800 transition-all"
+                  className="inline-flex items-center justify-center gap-2 bg-emerald-700 text-white px-8 py-3 rounded-2xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-emerald-900/20"
                 >
                   Clear Search
                 </button>
@@ -124,7 +124,7 @@ const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/contact"
-                className="bg-yellow-400 text-emerald-950 px-10 py-5 rounded-2xl font-black text-lg hover:bg-white transition-all shadow-xl shadow-yellow-400/20 text-center"
+                className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-emerald-950 px-10 py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-yellow-400/20"
               >
                 Start a Conversation
               </Link>

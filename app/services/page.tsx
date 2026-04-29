@@ -226,7 +226,7 @@ const ServicesPage = React.memo(() => {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/contact" className="w-full bg-yellow-400 text-emerald-950 font-black py-5 rounded-2xl hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-emerald-950 px-10 py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 hover:shadow-xl active:scale-95 shadow-lg shadow-yellow-400/20">
                     Start Sourcing Today <ArrowRight size={20} />
                   </Link>
                 </div>
@@ -248,7 +248,7 @@ const ServicesPage = React.memo(() => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
             
-              <Link href="/projects" className="bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/10 transition-all">
+              <Link href="/projects" className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-white hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95">
                 View Our Projects
               </Link>
             </div>

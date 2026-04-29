@@ -109,7 +109,7 @@ const ContactPage = () => {
               <div className="relative z-10">
                 <h3 className="text-2xl font-black text-emerald-950 mb-2 italic uppercase">Urgent Inquiry?</h3>
                 <p className="text-emerald-900 font-bold mb-6">Skip the form and call our engineering hotline.</p>
-                <a href="tel:+94765376106" className="inline-flex items-center gap-3 bg-emerald-950 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-black transition-colors">
+                <a href="tel:+94765376106" className="inline-flex items-center justify-center gap-3 bg-emerald-950 text-white px-10 py-4 rounded-2xl font-bold transition-all duration-300 hover:bg-white hover:text-emerald-950 hover:scale-105 hover:shadow-xl active:scale-95">
                   <Phone size={20} /> Call Now
                 </a>
               </div>
@@ -166,8 +166,9 @@ const ContactPage = () => {
                 </div>
 
                 <button 
-                  type="submit" disabled={loading}
-                  className="w-full bg-emerald-900 text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl hover:bg-emerald-800 hover:shadow-xl hover:shadow-emerald-900/20 transition-all flex justify-center items-center gap-3 group disabled:opacity-70"
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full inline-flex items-center justify-center gap-3 bg-emerald-700 text-white py-5 rounded-2xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:text-emerald-950 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] disabled:opacity-70 shadow-lg shadow-emerald-900/20 group"
                 >
                   {loading ? (
                     <div className="animate-spin rounded-full h-6 w-6 border-4 border-white border-t-transparent"></div>
