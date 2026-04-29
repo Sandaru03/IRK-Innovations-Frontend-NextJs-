@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Phone, Mail, MapPin, ArrowRight, MessageSquare } from 'lucide-react';
 import { toast } from 'react-toastify';
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +13,8 @@ const ContactPage = () => {
     message: ''
   });
   const [loading, setLoading] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
-    const header = document.querySelector('header');
-    if (header) setHeaderHeight(header.offsetHeight);
     window.scrollTo(0, 0);
   }, []);
 
@@ -68,10 +63,8 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-800">
-      <NavBar />
-      
       {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-20 bg-[#143d2d] overflow-hidden" style={{ marginTop: headerHeight }}>
+      <section className="relative pt-48 pb-20 bg-[#143d2d] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-400 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
         </div>
@@ -189,7 +182,7 @@ const ContactPage = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* Footer removed */}
     </div>
   );
 };

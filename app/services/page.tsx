@@ -3,9 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import NavBar from '../../components/NavBar';
-import TopBar from '../../components/TopBar';
-import Footer from '../../components/Footer';
 import { 
   Cpu, Settings, Search, CheckCircle2, ArrowRight, Zap, 
   Layers, Box, Factory, ChevronRight, 
@@ -13,12 +10,7 @@ import {
 } from 'lucide-react';
 
 const ServicesPage = React.memo(() => {
-  const [headerHeight, setHeaderHeight] = useState(0);
-
   useEffect(() => {
-    // Header height eka measure karala margin eka hadanna
-    const header = document.querySelector('header');
-    if (header) setHeaderHeight(header.offsetHeight);
     window.scrollTo(0, 0);
   }, []);
 
@@ -74,10 +66,8 @@ const ServicesPage = React.memo(() => {
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
-      <NavBar />
-
       {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-20 bg-[#143d2d] overflow-hidden" style={{ marginTop: headerHeight }}>
+      <section className="relative pt-48 pb-20 bg-[#143d2d] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-400 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         </div>
@@ -266,7 +256,7 @@ const ServicesPage = React.memo(() => {
         </div>
       </section>
 
-      <Footer />
+      {/* Footer removed */}
     </div>
   );
 });

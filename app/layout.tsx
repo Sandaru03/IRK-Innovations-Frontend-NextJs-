@@ -4,6 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import JsonLd from "../components/JsonLd";
+import TopBar from "../components/TopBar";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,7 +77,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <header className="fixed top-0 w-full z-50">
+          <TopBar />
+          <NavBar position="static" />
+        </header>
+        <main>
+          {children}
+        </main>
+        <Footer />
         <JsonLd />
         <ToastContainer position="bottom-right" theme="dark" />
       </body>

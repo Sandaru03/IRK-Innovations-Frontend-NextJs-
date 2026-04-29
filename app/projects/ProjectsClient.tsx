@@ -5,17 +5,11 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from '../../components/ProjectCard';
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
 
 const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
   const [projects, setProjects] = useState<any[]>(initialProjects || []);
   const [searchTerm, setSearchTerm] = useState('');
-  const [headerHeight, setHeaderHeight] = useState(0);
-
   useEffect(() => {
-    const header = document.querySelector('header');
-    if (header) setHeaderHeight(header.offsetHeight);
     window.scrollTo(0, 0);
   }, []);
 
@@ -33,10 +27,8 @@ const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
-      <NavBar />
-
       {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-20 bg-[#143d2d] overflow-hidden" style={{ marginTop: headerHeight }}>
+      <section className="relative pt-48 pb-20 bg-[#143d2d] overflow-hidden">
         {/* Background Patterns */}
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
@@ -141,7 +133,7 @@ const ProjectsClient = ({ initialProjects }: { initialProjects: any[] }) => {
         </div>
       </section>
 
-      <Footer />
+      {/* Footer removed */}
     </div>
   );
 };

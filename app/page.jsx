@@ -6,9 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import ProjectCard from '../components/ProjectCard';
-import NavBar from '../components/NavBar';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
 import SolutionsSection from '../components/SolutionsSection';
 import { motion } from 'framer-motion';
 import {
@@ -79,7 +76,6 @@ const HomePage = () => {
   const [apiProjects, setApiProjects] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState(null);
-  const [headerHeight, setHeaderHeight] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -159,18 +155,6 @@ const HomePage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const updateHeaderHeight = () => {
-      if (headerRef.current) {
-        setHeaderHeight(headerRef.current.offsetHeight);
-      }
-    };
-
-    // Initial measurement
-    updateHeaderHeight();
-
-    // Update on resize
-    window.addEventListener('resize', updateHeaderHeight);
-    return () => window.removeEventListener('resize', updateHeaderHeight);
   }, []);
 
   // Hero Slider Images
@@ -222,14 +206,8 @@ const HomePage = () => {
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
 
-      {/* ================= FIXED HEADER WRAPPER ================= */}
-      <header ref={headerRef} className="fixed top-0 w-full z-50">
-        <TopBar />
-        <NavBar position="static" />
-      </header>
-
       {/* ================= HERO SLIDER SECTION ================= */}
-      <section id="home" className="relative h-[700px] overflow-hidden" style={{ marginTop: headerHeight }}>
+      <section id="home" className="relative h-[700px] pt-32 overflow-hidden">
 
         {/* Slider Images */}
         {slides.map((slide, index) => (
@@ -266,7 +244,7 @@ const HomePage = () => {
         {/* Hero Content */}
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-[-60px] md:mt-[-40px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-20 md:mt-32">
 
               {/* Left: Text Content */}
               <div className="text-white">
@@ -1062,7 +1040,7 @@ const HomePage = () => {
       </section>
 
       {/* ================= FOOTER ================= */}
-      <Footer />
+      {/* Footer removed from here */}
 
       {/* Scroll To Top Button */}
       <button

@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
 import { 
   Award, 
   Users, 
@@ -76,11 +74,7 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
 };
 
 const AboutPage = () => {
-  const [headerHeight, setHeaderHeight] = useState(0);
-
   useEffect(() => {
-    const header = document.querySelector('header');
-    if (header) setHeaderHeight(header.offsetHeight);
     window.scrollTo(0, 0);
   }, []);
 
@@ -125,10 +119,8 @@ const AboutPage = () => {
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
-      <NavBar />
-      
       {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-20 bg-[#143d2d] overflow-hidden" style={{ marginTop: headerHeight }}>
+      <section className="relative pt-48 pb-20 bg-[#143d2d] overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
@@ -316,7 +308,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* Footer removed */}
     </div>
   );
 };
