@@ -14,7 +14,11 @@ import {
   Target,
   ShieldCheck,
   Globe,
-  ArrowRight
+  ArrowRight,
+  Zap,
+  Puzzle,
+  Handshake,
+  CircleHelp
 } from 'lucide-react';
 
 // Counter Component for Animation
@@ -89,22 +93,22 @@ const AboutPage = () => {
 
   const values = [
     {
-      icon: <Lightbulb size={32} />,
+      icon: <Lightbulb size={34} strokeWidth={1.5} />,
       title: "Innovation First",
       description: "We push boundaries with cutting-edge technology and creative electronics solutions."
     },
     {
-      icon: <Target size={32} />,
+      icon: <CircleHelp size={34} strokeWidth={1.5} />,
       title: "Problem Solvers",
       description: "Bring us your toughest challenges. We deliver complete, market-ready solutions."
     },
     {
-      icon: <Award size={32} />,
+      icon: <ShieldCheck size={34} strokeWidth={1.5} />,
       title: "Quality Assurance",
       description: "Every product undergoes rigorous industrial testing and validation processes."
     },
     {
-      icon: <Users size={32} />,
+      icon: <Handshake size={34} strokeWidth={1.5} />,
       title: "Client Partnership",
       description: "We work alongside you as technical partners from concept to mass deployment."
     }
@@ -223,8 +227,19 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, i) => (
               <div key={i} className="group p-10 bg-gray-50 rounded-[40px] border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-2xl transition-all duration-500">
-                <div className="bg-emerald-900 text-yellow-400 w-16 h-16 flex items-center justify-center rounded-2xl mb-8 group-hover:rotate-12 transition-transform shadow-lg shadow-emerald-900/20">
-                  {value.icon}
+                <div className="relative w-20 h-20 mb-8">
+                  {/* Animated background glow - Premium Layer */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-[32px] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                  
+                  {/* Icon container */}
+                  <div className="relative w-full h-full bg-[#143d2d] text-yellow-400 flex items-center justify-center rounded-[28px] group-hover:-translate-y-2 group-hover:rotate-[12deg] group-hover:scale-110 transition-all duration-500 shadow-2xl shadow-emerald-950/50 border border-white/5">
+                    {/* Inner glass reflection */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div className="relative transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-[12deg]">
+                      {value.icon}
+                    </div>
+                  </div>
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-4 leading-tight">{value.title}</h3>
                 <p className="text-gray-500 leading-relaxed text-sm">{value.description}</p>
