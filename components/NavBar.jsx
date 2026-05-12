@@ -1,11 +1,18 @@
 "use client";
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Phone, Mail } from "lucide-react";
 
 const NavBar = ({ position = "fixed" }) => {
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isActive = (path) => {
+    if (path === "/") return pathname === "/";
+    return pathname.startsWith(path);
+  };
 
   const navClasses =
     position === "fixed"
@@ -35,25 +42,33 @@ const NavBar = ({ position = "fixed" }) => {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-yellow-500 transition-colors"
+              className={`text-sm font-bold uppercase tracking-widest transition-colors ${
+                isActive("/") ? "text-yellow-500" : "text-zinc-400 hover:text-yellow-500"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-yellow-500 transition-colors"
+              className={`text-sm font-bold uppercase tracking-widest transition-colors ${
+                isActive("/about") ? "text-yellow-500" : "text-zinc-400 hover:text-yellow-500"
+              }`}
             >
               About
             </Link>
             <Link
               href="/services"
-              className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-yellow-500 transition-colors"
+              className={`text-sm font-bold uppercase tracking-widest transition-colors ${
+                isActive("/services") ? "text-yellow-500" : "text-zinc-400 hover:text-yellow-500"
+              }`}
             >
               Services
             </Link>
             <Link
               href="/projects"
-              className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-yellow-500 transition-colors"
+              className={`text-sm font-bold uppercase tracking-widest transition-colors ${
+                isActive("/projects") ? "text-yellow-500" : "text-zinc-400 hover:text-yellow-500"
+              }`}
             >
               Projects
             </Link>
@@ -63,7 +78,11 @@ const NavBar = ({ position = "fixed" }) => {
 
             <Link
               href="/contact"
-              className="flex items-center gap-2 border border-yellow-500/50 text-yellow-500 hover:bg-yellow-500 hover:text-black px-6 py-2 uppercase font-bold text-sm tracking-wider transition-all duration-300"
+              className={`flex items-center gap-2 border-2 px-6 py-2 rounded-xl uppercase font-bold text-sm tracking-wider transition-all duration-300 ${
+                isActive("/contact")
+                  ? "bg-yellow-500 text-black border-yellow-500"
+                  : "border-yellow-500/50 text-yellow-500 hover:bg-yellow-500 hover:text-black"
+              }`}
             >
               Contact Us
             </Link>
@@ -86,35 +105,45 @@ const NavBar = ({ position = "fixed" }) => {
             <Link
               href="/"
               onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-4 text-base font-bold text-zinc-300 hover:text-yellow-500 border-b border-zinc-800 uppercase tracking-wider"
+              className={`block px-3 py-4 text-base font-bold border-b border-zinc-800 uppercase tracking-wider ${
+                isActive("/") ? "text-yellow-500" : "text-zinc-300 hover:text-yellow-500"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/about"
               onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-4 text-base font-bold text-zinc-300 hover:text-yellow-500 border-b border-zinc-800 uppercase tracking-wider"
+              className={`block px-3 py-4 text-base font-bold border-b border-zinc-800 uppercase tracking-wider ${
+                isActive("/about") ? "text-yellow-500" : "text-zinc-300 hover:text-yellow-500"
+              }`}
             >
               About
             </Link>
             <Link
               href="/services"
               onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-4 text-base font-bold text-zinc-300 hover:text-yellow-500 border-b border-zinc-800 uppercase tracking-wider"
+              className={`block px-3 py-4 text-base font-bold border-b border-zinc-800 uppercase tracking-wider ${
+                isActive("/services") ? "text-yellow-500" : "text-zinc-300 hover:text-yellow-500"
+              }`}
             >
               Services
             </Link>
             <Link
               href="/projects"
               onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-4 text-base font-bold text-zinc-300 hover:text-yellow-500 border-b border-zinc-800 uppercase tracking-wider"
+              className={`block px-3 py-4 text-base font-bold border-b border-zinc-800 uppercase tracking-wider ${
+                isActive("/projects") ? "text-yellow-500" : "text-zinc-300 hover:text-yellow-500"
+              }`}
             >
               Projects
             </Link>
             <Link
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-4 text-base font-bold text-zinc-300 hover:text-yellow-500 border-b border-zinc-800 uppercase tracking-wider"
+              className={`block px-3 py-4 text-base font-bold border-b border-zinc-800 uppercase tracking-wider ${
+                isActive("/contact") ? "text-yellow-500" : "text-zinc-300 hover:text-yellow-500"
+              }`}
             >
               Contact Us
             </Link>
