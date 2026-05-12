@@ -4,10 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import JsonLd from "../components/JsonLd";
-import TopBar from "../components/TopBar";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import ScrollToTop from "../components/ScrollToTop";
+import ConditionalLayout from "../components/ConditionalLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,15 +75,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        <header className="fixed top-0 w-full z-50">
-          <TopBar />
-          <NavBar position="static" />
-        </header>
-        <main>
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
-        <ScrollToTop />
+        </ConditionalLayout>
         <JsonLd />
         <ToastContainer position="bottom-right" theme="dark" />
       </body>
