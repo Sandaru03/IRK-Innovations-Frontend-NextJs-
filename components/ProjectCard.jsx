@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const ProjectCard = ({ project, priority = false }) => {
   return (
-    <div className="group flex flex-col h-full bg-transparent">
+    <Link href={`/projects/${project._id}`} className="group flex flex-col h-full bg-transparent">
       
       {/* Image Section - Large Rounded Corners */}
 
@@ -45,16 +45,15 @@ const ProjectCard = ({ project, priority = false }) => {
           {project.shortDescription || project.description}
         </p>
 
-        {/* Read More Link */}
-        <Link 
-          href={`/projects/${project._id}`} 
-          className="mt-auto inline-flex items-center gap-2 text-[#143d2d] font-bold text-sm hover:gap-3 transition-all duration-300"
+        {/* Read More Link (now as a div since parent is a Link) */}
+        <div 
+          className="mt-auto inline-flex items-center gap-2 text-[#143d2d] font-bold text-sm group-hover:gap-3 transition-all duration-300"
         >
           Read More <ArrowRight size={18} />
-        </Link>
+        </div>
       </div>
 
-    </div>
+    </Link>
   );
 };
 

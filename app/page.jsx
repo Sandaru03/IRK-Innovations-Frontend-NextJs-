@@ -641,7 +641,7 @@ const HomePage = () => {
               </div>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                Our Goals to Deliver top-notch <span className="text-emerald-600">Electrical Solutions</span>
+                Our Goals to Deliver top-notch <span className="text-emerald-600">Electronics Solutions</span>
               </h2>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-10">
