@@ -705,7 +705,7 @@ const HomePage = () => {
                       <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
                       <text className="text-[10px] font-bold uppercase tracking-widest fill-current">
                         <textPath href="#curve">
-                          Irk Innovations • Excellence • Innovation •
+                          Irk Innovations • E x c e l l e n c e •
                         </textPath>
                       </text>
                     </svg>
