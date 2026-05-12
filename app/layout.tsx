@@ -63,6 +63,11 @@ export const metadata: Metadata = {
   verification: {
     google: "wj0IQ1rCdjfrPObI8aE0v_A_elFNj6ALEenRP2iWKTM",
   },
+  icons: {
+    icon: '/IRKLogo.jpg',
+    shortcut: '/IRKLogo.jpg',
+    apple: '/IRKLogo.jpg',
+  },
 };
 
 export default function RootLayout({
