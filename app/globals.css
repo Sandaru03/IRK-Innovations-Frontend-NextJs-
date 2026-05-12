@@ -31,4 +31,12 @@
     background-color: #facc15; /* Yellow 400 */
     color: #000;
   }
+
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    cursor: pointer;
+  }
 }
