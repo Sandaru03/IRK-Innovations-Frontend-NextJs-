@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
 
 const ProjectDetailsClient = ({ project }) => {
   const [activeImage, setActiveImage] = useState(null);
@@ -23,7 +21,6 @@ const ProjectDetailsClient = ({ project }) => {
 
   return (
     <div className="font-sans text-gray-800 bg-white min-h-screen">
-      <NavBar />
 
       {/* ================= HERO SECTION ================= */}
       <div className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 bg-zinc-900 text-white overflow-hidden">
@@ -152,8 +149,6 @@ const ProjectDetailsClient = ({ project }) => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };
