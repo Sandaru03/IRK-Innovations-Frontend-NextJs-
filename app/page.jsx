@@ -75,7 +75,7 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
 const HomePage = () => {
   const [apiProjects, setApiProjects] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [expandedFaq, setExpandedFaq] = useState(null);
+  const [expandedFaq, setExpandedFaq] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

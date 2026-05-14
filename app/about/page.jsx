@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Award, 
-  Users, 
-  Lightbulb, 
+import {
+  Award,
+  Users,
+  Lightbulb,
   TrendingUp,
   CheckCircle2,
   Target,
@@ -52,7 +52,7 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
+
       const easeOutQuad = (t) => t * (2 - t);
       const currentCount = Math.floor(easeOutQuad(percentage) * end);
 
@@ -124,7 +124,7 @@ const AboutPage = () => {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
 
@@ -132,7 +132,7 @@ const AboutPage = () => {
               About <span className="text-yellow-400 underline decoration-white/10">IRK Innovations</span>
             </h1>
             <p className="text-emerald-100 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              Leading the way in customized electronics products design and manufacturing 
+              Leading the way in customized electronics products design and manufacturing
               with over a decade of proven industrial excellence.
             </p>
           </div>
@@ -161,25 +161,25 @@ const AboutPage = () => {
       <section className="py-24 bg-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            
+
             <div className="relative">
-               {/* Image Collage Style */}
-               <div className="grid grid-cols-2 gap-4">
-                 <div className="space-y-4">
-                   <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
+              {/* Image Collage Style */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
                     <Image src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600" alt="Tech" fill className="object-cover" />
-                   </div>
-                 </div>
-                 <div className="pt-12 space-y-4">
-                   <div className="bg-[#143d2d] p-8 rounded-3xl shadow-lg text-white">
-                     <h4 className="text-4xl font-black mb-1">10+</h4>
-                     <p className="text-emerald-200 text-sm font-bold uppercase tracking-widest">Years of Trust</p>
-                   </div>
-                   <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
+                  </div>
+                </div>
+                <div className="pt-12 space-y-4">
+                  <div className="bg-[#143d2d] p-8 rounded-3xl shadow-lg text-white">
+                    <h4 className="text-4xl font-black mb-1">10+</h4>
+                    <p className="text-emerald-200 text-sm font-bold uppercase tracking-widest">Years of Trust</p>
+                  </div>
+                  <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
                     <Image src="https://images.unsplash.com/photo-1592659762303-90081d34b277?q=80&w=600" alt="Electronics" fill className="object-cover" />
-                   </div>
-                 </div>
-               </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-8">
@@ -191,10 +191,10 @@ const AboutPage = () => {
                 Empowering businesses through <span className="text-emerald-700">innovative electronics</span>
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed">
-                To provide environmentally conscious and energy-efficient electronics solutions that exceed industry standards. 
+                To provide environmentally conscious and energy-efficient electronics solutions that exceed industry standards.
                 We transform complex technical problems into reliable, high-performance market-ready products.
               </p>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {expertise.map((item, i) => (
                   <div key={i} className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-gray-100">
@@ -212,8 +212,8 @@ const AboutPage = () => {
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-4">Values that Drive Us</h2>
-             <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-4">Values that Drive Us</h2>
+            <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -222,12 +222,12 @@ const AboutPage = () => {
                 <div className="relative w-20 h-20 mb-8">
                   {/* Animated background glow - Premium Layer */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-emerald-500 rounded-[32px] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                  
+
                   {/* Icon container */}
                   <div className="relative w-full h-full bg-[#143d2d] text-yellow-400 flex items-center justify-center rounded-[28px] group-hover:-translate-y-2 group-hover:rotate-[12deg] group-hover:scale-110 transition-all duration-500 shadow-2xl shadow-emerald-950/50 border border-white/5">
                     {/* Inner glass reflection */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
+
                     <div className="relative transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-[12deg]">
                       {value.icon}
                     </div>
@@ -255,7 +255,7 @@ const AboutPage = () => {
                 View Our Portfolio <ArrowRight size={20} />
               </Link>
             </div>
-            
+
             <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
