@@ -8,14 +8,19 @@ import { supabase } from '../../lib/supabaseClient';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState<any[]>([]);
+  const [activeSection, setActiveSection] = useState<'projects' | 'order'>('projects');
+  const [orderData, setOrderData] = useState<any>({});
+  const [savingOrder, setSavingOrder] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     shortDescription: '',
     mainImage: '',
     detailImages: [],
-    liveLink: ''
+    liveLink: '',
+    projectNumber: 0
   });
   const [uploading, setUploading] = useState(false);
   const [editingProject, setEditingProject] = useState<any>(null);
@@ -39,6 +44,12 @@ const Dashboard = () => {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       const response = await axios.get(`${apiUrl}/projects?full=true`);
       setProjects(response.data);
+      // Initialize orderData
+      const initialOrderData: any = {};
+      response.data.forEach((p: any) => {
+        initialOrderData[p._id] = p.projectNumber || 0;
+      });
+      setOrderData(initialOrderData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -150,7 +161,8 @@ const Dashboard = () => {
         shortDescription: project.shortDescription || '',
         mainImage: project.mainImage || '',
         detailImages: project.detailImages || [],
-        liveLink: project.liveLink || ''
+        liveLink: project.liveLink || '',
+        projectNumber: project.projectNumber || 0
       });
     } else {
       setEditingProject(null);
@@ -160,7 +172,8 @@ const Dashboard = () => {
         shortDescription: '',
         mainImage: '',
         detailImages: [],
-        liveLink: ''
+        liveLink: '',
+        projectNumber: 0
       });
     }
     setIsModalOpen(true);
@@ -175,7 +188,8 @@ const Dashboard = () => {
       shortDescription: '',
       mainImage: '',
       detailImages: [],
-      liveLink: ''
+      liveLink: '',
+      projectNumber: 0
     });
   };
 
@@ -218,112 +232,211 @@ const Dashboard = () => {
     }
   };
 
+  const handleOrderChange = (projectId: string, value: string) => {
+    setOrderData({ ...orderData, [projectId]: parseInt(value) || 0 });
+  };
+
+  const saveAllOrders = async () => {
+    setSavingOrder(true);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+
+      // We can update them sequentially or create a bulk endpoint. 
+      // For now, let's do them in parallel since it's a small number.
+      const updates = Object.entries(orderData).map(([id, num]) =>
+        axios.put(`${apiUrl}/projects/${id}`, { projectNumber: num }, config)
+      );
+
+      await Promise.all(updates);
+      await fetchProjects();
+      alert('Project counts updated successfully!');
+    } catch (error) {
+      console.error('Error saving orders:', error);
+      alert('Failed to update project counts.');
+    } finally {
+      setSavingOrder(false);
+    }
+  };
+
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 flex font-sans selection:bg-emerald-500 selection:text-white">
-      {/* Sidebar - Modern Dark Gradient */}
-      <aside className="w-72 bg-linear-to-b from-slate-900 to-slate-800 text-white shadow-2xl hidden md:flex h-screen fixed top-0 left-0 z-40 flex-col justify-between border-r border-white/10">
-        <div>
+    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 flex font-sans selection:bg-emerald-500 selection:text-white relative">
+      {/* Mobile Backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* Sidebar - Responsive Design */}
+      <aside className={`fixed top-0 left-0 h-screen w-72 bg-slate-900 text-white shadow-2xl z-50 transition-transform duration-300 transform md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:sticky md:top-0 flex flex-col border-r border-white/10`}>
+        <div className="flex-1 overflow-y-auto">
           <div className="p-8">
-            <h1 className="text-3xl font-black tracking-tighter flex items-center gap-3 bg-linear-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
-              <LayoutDashboard className="w-8 h-8 text-emerald-400" />
-              IRK Admin
-            </h1>
-            <p className="text-slate-400 text-xs mt-2 font-medium tracking-wider uppercase">Control Panel</p>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="bg-emerald-500/20 p-2 rounded-xl">
+                <LayoutDashboard className="w-8 h-8 text-emerald-400" />
+              </div>
+              <h1 className="text-3xl font-black tracking-tighter text-white">
+                IRK Admin
+              </h1>
+            </div>
+            <p className="text-slate-500 text-xs font-bold tracking-widest uppercase ml-1">Control Panel</p>
           </div>
-          <nav className="mt-8 px-6 space-y-3">
-            <a href="#" className="flex items-center gap-4 px-6 py-4 bg-emerald-600/20 text-emerald-300 rounded-2xl border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)] transition-all cursor-pointer">
-              <LayoutDashboard className="w-5 h-5" />
-              <span className="font-bold">Projects</span>
-            </a>
-            <a href="/" target="_blank" className="flex items-center gap-4 px-6 py-4 text-slate-400 hover:bg-white/5 hover:text-white rounded-2xl transition-all cursor-pointer group">
-              <LinkIcon className="w-5 h-5 group-hover:text-emerald-400 transition-colors" />
-              <span className="font-medium">Live Website</span>
+
+          <nav className="mt-4 px-6 space-y-4">
+            <button
+              onClick={() => { setActiveSection('projects'); setIsSidebarOpen(false); }}
+              className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all cursor-pointer ${activeSection === 'projects' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'text-slate-400 hover:text-white'}`}
+            >
+              <LayoutDashboard className="w-6 h-6" />
+              <span className="font-bold text-lg">Projects</span>
+            </button>
+            <button
+              onClick={() => { setActiveSection('order'); setIsSidebarOpen(false); }}
+              className={`w-full flex items-center gap-4 px-6 py-3 rounded-xl transition-all cursor-pointer ${activeSection === 'order' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'text-slate-400 hover:text-white'}`}
+            >
+              <Star className="w-6 h-6" />
+              <span className="font-bold text-lg">Manage Count</span>
+            </button>
+            <a href="/" target="_blank" className="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-white rounded-xl transition-all cursor-pointer group">
+              <LinkIcon className="w-6 h-6 group-hover:text-emerald-400 transition-colors" />
+              <span className="font-bold text-lg">Live Website</span>
             </a>
           </nav>
         </div>
-        <div className="p-6 border-t border-white/10">
+
+        <div className="p-8 border-t border-white/10 bg-slate-900">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-6 py-4 text-red-400 hover:bg-red-500/10 hover:text-red-300 w-full rounded-2xl transition-all cursor-pointer font-bold tracking-wide"
+            className="flex items-center gap-4 text-red-600 hover:text-red-500 w-full transition-all cursor-pointer group"
           >
-            <LogOut className="w-5 h-5" />
-            Sign Out
+            <LogOut className="w-7 h-7 group-hover:scale-110 transition-transform" />
+            <span className="font-black text-2xl tracking-tight">Sign Out</span>
           </button>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-8 md:p-12 ml-0 md:ml-72 overflow-y-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-           <div>
+      {/* Main Content Area */}
+      <main className="flex-1 w-full min-h-screen overflow-x-hidden">
+        {/* Mobile Header */}
+        <header className="sticky top-0 z-20 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-b border-slate-100 dark:border-zinc-800 p-4 md:hidden flex justify-between items-center">
+          <h1 className="text-xl font-black text-slate-800 dark:text-white tracking-tighter">IRK Admin</h1>
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 bg-slate-100 dark:bg-zinc-800 rounded-xl text-slate-600 dark:text-white"
+          >
+            <LayoutDashboard className="w-6 h-6" />
+          </button>
+        </header>
+
+        <div className="p-6 md:p-12 max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            <div>
               <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">Project Management</h2>
               <p className="text-slate-500 mt-2 text-lg">Manage and update your portfolio efficiently.</p>
               <div className="mt-4 inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-full font-bold">
-                 <Star className="w-5 h-5 fill-current" />
-                 <span>Home Page Projects: {projects.filter(p => p.isFeatured).length} / 6</span>
+                <Star className="w-5 h-5 fill-current" />
+                <span>Home Page Projects: {projects.filter(p => p.isFeatured).length} / 6</span>
               </div>
-           </div>
-          
-          <button
-            onClick={() => openModal()}
-            className="flex items-center gap-2 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer font-bold text-lg"
-          >
-            <Plus className="w-6 h-6" />
-            Add Project
-          </button>
-        </div>
+            </div>
 
-        {/* Project Grid */}
-        {loading ? (
-          <div className="flex items-center justify-center h-96">
-            <Loader className="w-12 h-12 text-emerald-600 animate-spin" />
+            <button
+              onClick={() => openModal()}
+              className="flex items-center gap-2 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer font-bold text-lg"
+            >
+              <Plus className="w-6 h-6" />
+              Add Project
+            </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <div key={project._id} className="group bg-white dark:bg-zinc-800 rounded-3xl shadow-xl hover:shadow-2xl border border-slate-100 dark:border-zinc-700 overflow-hidden transition-all duration-500 hover:-translate-y-2">
-                <div className="h-64 overflow-hidden relative">
-                  <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
-                  <div className="absolute top-4 right-4 flex gap-3 opacity-100 transform translate-y-0 transition-all duration-300">
-                    <button
-                      onClick={() => handleToggleFeature(project)}
-                      className={`p-3 backdrop-blur-md rounded-full shadow-lg transition-all cursor-pointer ${project.isFeatured ? 'bg-yellow-400 text-white hover:bg-yellow-500 hover:scale-110' : 'bg-white/90 text-slate-400 hover:bg-white hover:text-yellow-400 hover:scale-110'}`}
-                      title={project.isFeatured ? "Remove from Home Page" : "Add to Home Page"}
-                    >
-                      <Star className={`w-5 h-5 ${project.isFeatured ? 'fill-current' : ''}`} />
-                    </button>
-                    <button
-                      onClick={() => openModal(project)}
-                      className="p-3 bg-white/90 backdrop-blur-md text-emerald-600 rounded-full hover:bg-white hover:scale-110 shadow-lg transition-all cursor-pointer"
-                      title="Edit Project"
-                    >
-                      <Edit2 className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(project._id)}
-                      className="p-3 bg-white/90 backdrop-blur-md text-red-500 rounded-full hover:bg-white hover:scale-110 shadow-lg transition-all cursor-pointer"
-                      title="Delete Project"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+
+          {/* Project Grid */}
+          {loading ? (
+            <div className="flex items-center justify-center h-96">
+              <Loader className="w-12 h-12 text-emerald-600 animate-spin" />
+            </div>
+          ) : activeSection === 'projects' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project) => (
+                <div key={project._id} className="group bg-white dark:bg-zinc-800 rounded-3xl shadow-xl hover:shadow-2xl border border-slate-100 dark:border-zinc-700 overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                  <div className="h-64 overflow-hidden relative">
+                    <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold border border-white/20">
+                      Project #{project.projectNumber || 0}
+                    </div>
+                    <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                    <div className="absolute top-4 right-4 flex gap-3 opacity-100 transform translate-y-0 transition-all duration-300">
+                      <button
+                        onClick={() => handleToggleFeature(project)}
+                        className={`p-3 backdrop-blur-md rounded-full shadow-lg transition-all cursor-pointer ${project.isFeatured ? 'bg-yellow-400 text-white hover:bg-yellow-500 hover:scale-110' : 'bg-white/90 text-slate-400 hover:bg-white hover:text-yellow-400 hover:scale-110'}`}
+                        title={project.isFeatured ? "Remove from Home Page" : "Add to Home Page"}
+                      >
+                        <Star className={`w-5 h-5 ${project.isFeatured ? 'fill-current' : ''}`} />
+                      </button>
+                      <button
+                        onClick={() => openModal(project)}
+                        className="p-3 bg-white/90 backdrop-blur-md text-emerald-600 rounded-full hover:bg-white hover:scale-110 shadow-lg transition-all cursor-pointer"
+                        title="Edit Project"
+                      >
+                        <Edit2 className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(project._id)}
+                        className="p-3 bg-white/90 backdrop-blur-md text-red-500 rounded-full hover:bg-white hover:scale-110 shadow-lg transition-all cursor-pointer"
+                        title="Delete Project"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="font-bold text-2xl text-slate-800 dark:text-white mb-3 leading-tight">{project.title}</h3>
+                    <p className="text-slate-500 dark:text-zinc-400 text-base line-clamp-2 leading-relaxed">{project.shortDescription || project.description}</p>
                   </div>
                 </div>
-                <div className="p-8">
-                  <h3 className="font-bold text-2xl text-slate-800 dark:text-white mb-3 leading-tight">{project.title}</h3>
-                  <p className="text-slate-500 dark:text-zinc-400 text-base line-clamp-2 leading-relaxed">{project.shortDescription || project.description}</p>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-slate-50/50 dark:bg-zinc-900/50 rounded-[2.5rem] shadow-sm p-8 md:p-12 border border-slate-200 dark:border-zinc-800">
+              <div className="mb-10 px-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <h3 className="text-xl font-black text-slate-800 dark:text-white uppercase tracking-wider">Home Page Project Selection</h3>
+                  <p className="text-slate-500 mt-2 font-medium">Selected: <span className="font-bold text-slate-800 dark:text-white">{projects.length}</span> <span className="text-sm opacity-60 ml-1">(Home page shows first 9 only)</span></p>
                 </div>
+                <button
+                  onClick={saveAllOrders}
+                  disabled={savingOrder}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-emerald-500/20 transition-all active:scale-95 flex items-center gap-3 disabled:opacity-50 whitespace-nowrap"
+                >
+                  {savingOrder ? <Loader className="w-5 h-5 animate-spin" /> : <Star className="w-5 h-5 fill-current" />}
+                  {savingOrder ? 'Saving...' : 'Save All Selection'}
+                </button>
               </div>
-            ))}
-          </div>
-        )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {projects.map((project) => (
+                  <div key={project._id} className="flex items-center justify-between p-5 bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all group">
+                    <h4 className="font-bold text-slate-700 dark:text-zinc-200 truncate pr-4">{project.title}</h4>
+                    <input
+                      type="number"
+                      value={orderData[project._id] || 0}
+                      onChange={(e) => handleOrderChange(project._id, e.target.value)}
+                      className="w-14 h-12 rounded-xl bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 focus:border-emerald-500 outline-none text-center font-bold text-slate-800 dark:text-white transition-all shadow-inner"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Modal - Modern Glassmorphism */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
             <div className="bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto scale-100 animate-in zoom-in-95 duration-200">
-              
+
               {/* Modal Header */}
               <div className="sticky top-0 z-10 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md px-8 py-6 border-b border-slate-100 dark:border-zinc-700 flex justify-between items-center">
                 <h3 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
@@ -336,60 +449,60 @@ const Dashboard = () => {
                   ✕
                 </button>
               </div>
-              
+
               <div className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Project Title</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all font-medium"
-                            placeholder="e.g. Smart Automation System"
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Project Title</label>
+                      <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all font-medium"
+                        placeholder="e.g. Smart Automation System"
 
-                        />
+                      />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Live Link</label>
-                        <div className="relative">
-                            <LinkIcon className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
-                            <input
-                                type="text"
-                                name="liveLink"
-                                value={formData.liveLink}
-                                onChange={handleChange}
-                                className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 pl-12 transition-all font-medium"
-                                placeholder="https://..."
-                            />
-                        </div>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Live Link</label>
+                      <div className="relative">
+                        <LinkIcon className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
+                        <input
+                          type="text"
+                          name="liveLink"
+                          value={formData.liveLink}
+                          onChange={handleChange}
+                          className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 pl-12 transition-all font-medium"
+                          placeholder="https://..."
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Short Description</label>
                     <textarea
-                        name="shortDescription"
-                        value={formData.shortDescription}
-                        onChange={handleChange}
-                        rows={2}
-                        className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all"
-                        placeholder="A brief summary for the card view..."
+                      name="shortDescription"
+                      value={formData.shortDescription}
+                      onChange={handleChange}
+                      rows={2}
+                      className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all"
+                      placeholder="A brief summary for the card view..."
 
                     ></textarea>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Full Description</label>
                     <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        rows={6}
-                        className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all leading-relaxed"
-                        placeholder="Detailed explanation of the project features and technologies..."
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      rows={6}
+                      className="w-full rounded-xl bg-slate-50 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 p-4 transition-all leading-relaxed"
+                      placeholder="Detailed explanation of the project features and technologies..."
 
                     ></textarea>
                   </div>
@@ -398,29 +511,29 @@ const Dashboard = () => {
                     {/* Main Image Upload */}
                     <div className="space-y-3">
                       <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex justify-between">
-                          <span>Main Cover Image</span>
-                          {formData.mainImage && <span className="text-emerald-600 text-xs bg-emerald-50 px-2 py-1 rounded-md">Uploaded</span>}
+                        <span>Main Cover Image</span>
+                        {formData.mainImage && <span className="text-emerald-600 text-xs bg-emerald-50 px-2 py-1 rounded-md">Uploaded</span>}
                       </label>
                       <div className="flex items-start gap-6">
                         <div className="hidden md:block w-32 h-20 rounded-lg overflow-hidden bg-slate-100 shadow-inner shrink-0">
-                           {formData.mainImage ? (
-                               <img src={formData.mainImage} alt="Main" className="w-full h-full object-cover" />
-                           ) : (
-                               <div className="w-full h-full flex items-center justify-center text-slate-300">No Image</div>
-                           )}
+                          {formData.mainImage ? (
+                            <img src={formData.mainImage} alt="Main" className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-300">No Image</div>
+                          )}
                         </div>
                         <label className="flex-1 cursor-pointer group">
-                             <div className="w-full border-2 border-dashed border-slate-300 group-hover:border-emerald-500 rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all bg-slate-50 group-hover:bg-emerald-50/30">
-                                 <Plus className="w-8 h-8 text-slate-400 group-hover:text-emerald-500 mb-2 transition-colors" />
-                                 <span className="text-slate-600 font-medium group-hover:text-emerald-600">Click to upload cover image</span>
-                                 <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={(e) => handleFileUpload(e, 'mainImage')}
-                                    className="hidden"
-                                    disabled={uploading}
-                                 />
-                             </div>
+                          <div className="w-full border-2 border-dashed border-slate-300 group-hover:border-emerald-500 rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all bg-slate-50 group-hover:bg-emerald-50/30">
+                            <Plus className="w-8 h-8 text-slate-400 group-hover:text-emerald-500 mb-2 transition-colors" />
+                            <span className="text-slate-600 font-medium group-hover:text-emerald-600">Click to upload cover image</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleFileUpload(e, 'mainImage')}
+                              className="hidden"
+                              disabled={uploading}
+                            />
+                          </div>
                         </label>
                       </div>
                     </div>
@@ -430,38 +543,38 @@ const Dashboard = () => {
                       <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Gallery Images (Max 8)
                       </label>
-                      
+
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                          {(formData.detailImages as any[]).map((img, idx) => (
-                             <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group shadow-md hover:shadow-lg transition-all">
-                               <img src={img} alt={`Detail ${idx}`} className="w-full h-full object-cover"/>
-                               <button
-                                 type="button"
-                                 onClick={() => removeDetailImage(idx)}
-                                 className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 hover:scale-110 transition-all cursor-pointer shadow-lg"
-                               >
-                                 <Trash2 size={14} />
-                               </button>
-                             </div>
-                          ))}
-                          
-                           {/* Upload Button Block */}
-                           {(formData.detailImages as any[]).length < 8 && (
-                               <label className="aspect-square cursor-pointer group">
-                                 <div className="w-full h-full border-2 border-dashed border-slate-300 group-hover:border-emerald-500 rounded-xl flex flex-col items-center justify-center text-center transition-all bg-slate-50 group-hover:bg-emerald-50/30">
-                                     <Plus className="w-6 h-6 text-slate-400 group-hover:text-emerald-500 mb-1" />
-                                     <span className="text-xs text-slate-500 font-bold uppercase tracking-wider group-hover:text-emerald-600">Add Image</span>
-                                     <input
-                                       type="file"
-                                       accept="image/*"
-                                       multiple
-                                       onChange={(e) => handleFileUpload(e, 'detailImages')}
-                                       className="hidden"
-                                       disabled={uploading}
-                                     />
-                                 </div>
-                               </label>
-                           )}
+                        {(formData.detailImages as any[]).map((img, idx) => (
+                          <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group shadow-md hover:shadow-lg transition-all">
+                            <img src={img} alt={`Detail ${idx}`} className="w-full h-full object-cover" />
+                            <button
+                              type="button"
+                              onClick={() => removeDetailImage(idx)}
+                              className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 hover:scale-110 transition-all cursor-pointer shadow-lg"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        ))}
+
+                        {/* Upload Button Block */}
+                        {(formData.detailImages as any[]).length < 8 && (
+                          <label className="aspect-square cursor-pointer group">
+                            <div className="w-full h-full border-2 border-dashed border-slate-300 group-hover:border-emerald-500 rounded-xl flex flex-col items-center justify-center text-center transition-all bg-slate-50 group-hover:bg-emerald-50/30">
+                              <Plus className="w-6 h-6 text-slate-400 group-hover:text-emerald-500 mb-1" />
+                              <span className="text-xs text-slate-500 font-bold uppercase tracking-wider group-hover:text-emerald-600">Add Image</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={(e) => handleFileUpload(e, 'detailImages')}
+                                className="hidden"
+                                disabled={uploading}
+                              />
+                            </div>
+                          </label>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -480,8 +593,8 @@ const Dashboard = () => {
                       className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
                       disabled={uploading}
                     >
-                       {uploading && <Loader className="w-5 h-5 animate-spin" />}
-                       {uploading ? 'Uploading...' : 'Save Project'}
+                      {uploading && <Loader className="w-5 h-5 animate-spin" />}
+                      {uploading ? 'Uploading...' : 'Save Project'}
                     </button>
                   </div>
                 </form>

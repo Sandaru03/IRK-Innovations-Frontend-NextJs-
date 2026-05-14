@@ -30,6 +30,13 @@ const ProjectCard = ({ project, priority = false }) => {
         )}
         {/* Subtle overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+        
+        {/* Project Number Badge */}
+        {project.projectNumber > 0 && (
+          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-emerald-900 px-3 py-1 rounded-full text-xs font-black shadow-sm border border-emerald-100 z-10">
+            Project #{project.projectNumber}
+          </div>
+        )}
       </div>
 
       {/* Content Section */}

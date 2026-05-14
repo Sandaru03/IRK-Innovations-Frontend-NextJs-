@@ -6,14 +6,19 @@ import { supabase } from '../../../supabaseClient';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
+  const [activeSection, setActiveSection] = useState('projects');
+  const [orderData, setOrderData] = useState({});
+  const [savingOrder, setSavingOrder] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     shortDescription: '',
     mainImage: '',
     detailImages: [],
-    liveLink: ''
+    liveLink: '',
+    projectNumber: 0
   });
   const [uploading, setUploading] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
@@ -36,6 +41,11 @@ const Dashboard = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
       setProjects(response.data);
+      const initialOrderData = {};
+      response.data.forEach(p => {
+        initialOrderData[p._id] = p.projectNumber || 0;
+      });
+      setOrderData(initialOrderData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -121,7 +131,7 @@ const Dashboard = () => {
       } else {
         await axios.post(`${import.meta.env.VITE_API_URL}/projects`, formData, config);
       }
-      
+
       fetchProjects();
       closeModal();
     } catch (error) {
@@ -139,7 +149,8 @@ const Dashboard = () => {
         shortDescription: project.shortDescription || '',
         mainImage: project.mainImage,
         detailImages: project.detailImages || [],
-        liveLink: project.liveLink || ''
+        liveLink: project.liveLink || '',
+        projectNumber: project.projectNumber || 0
       });
     } else {
       setEditingProject(null);
@@ -164,7 +175,8 @@ const Dashboard = () => {
       shortDescription: '',
       mainImage: '',
       detailImages: [],
-      liveLink: ''
+      liveLink: '',
+      projectNumber: 0
     });
   };
 
@@ -179,22 +191,53 @@ const Dashboard = () => {
     }
   };
 
+  const handleOrderChange = (projectId, value) => {
+    setOrderData({ ...orderData, [projectId]: parseInt(value) || 0 });
+  };
+
+  const saveAllOrders = async () => {
+    setSavingOrder(true);
+    try {
+      const updates = Object.entries(orderData).map(([id, num]) =>
+        axios.put(`${import.meta.env.VITE_API_URL}/projects/${id}`, { projectNumber: num }, config)
+      );
+      await Promise.all(updates);
+      await fetchProjects();
+      alert('Project counts updated!');
+    } catch (error) {
+      console.error('Error saving orders:', error);
+      alert('Failed to update counts.');
+    } finally {
+      setSavingOrder(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-zinc-900 flex">
       {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-zinc-800 shadow-lg hidden md:flex h-screen fixed top-0 left-0 z-40 flex-col justify-between">
         <div>
           <div className="p-6">
-          <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
-            <LayoutDashboard className="w-8 h-8" />
-            Admin Panel
-          </h1>
-        </div>
+            <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+              <LayoutDashboard className="w-8 h-8" />
+              Admin Panel
+            </h1>
+          </div>
           <nav className="mt-6 px-4 space-y-2">
-            <a href="#" className="flex items-center gap-3 px-4 py-3 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg">
+            <button
+              onClick={() => setActiveSection('projects')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeSection === 'projects' ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-700/50'}`}
+            >
               <LayoutDashboard className="w-5 h-5" />
               Projects
-            </a>
+            </button>
+            <button
+              onClick={() => setActiveSection('order')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeSection === 'order' ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-700/50'}`}
+            >
+              <Edit2 className="w-5 h-5" />
+              Manage Count
+            </button>
             <a href="/" target="_blank" className="flex items-center gap-3 px-4 py-3 text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-700/50 rounded-lg transition-colors">
               <LinkIcon className="w-5 h-5" />
               Go to Home
@@ -225,34 +268,70 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <div key={project._id} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden">
-              <div className="h-48 overflow-hidden relative group">
-                <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
-                <div className="absolute top-2 right-2 flex gap-2">
-                  <button
-                    onClick={() => openModal(project)}
-                    className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
-                  >
-                    <Edit2 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(project._id)}
-                    className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+        {/* Content Area */}
+        {loading ? (
+          <div className="flex items-center justify-center h-96">
+            <Loader className="w-12 h-12 text-emerald-600 animate-spin" />
+          </div>
+        ) : activeSection === 'projects' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project) => (
+              <div key={project._id} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+                <div className="h-48 overflow-hidden relative group">
+                  <div className="absolute top-2 left-2 z-10 bg-black/50 text-white px-2 py-0.5 rounded text-xs font-bold">
+                    #{project.projectNumber || 0}
+                  </div>
+                  <img src={project.mainImage} alt={project.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                  <div className="absolute top-2 right-2 flex gap-2">
+                    <button
+                      onClick={() => openModal(project)}
+                      className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(project._id)}
+                      className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg text-zinc-900 dark:text-white mb-2">{project.title}</h3>
+                  <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-2 mb-4">{project.shortDescription || project.description}</p>
                 </div>
               </div>
-              <div className="p-4">
-                <h3 className="font-bold text-lg text-zinc-900 dark:text-white mb-2">{project.title}</h3>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-2 mb-4">{project.shortDescription || project.description}</p>
-              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-700 p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold dark:text-white">Update Project Counts</h3>
+              <button
+                onClick={saveAllOrders}
+                disabled={savingOrder}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition disabled:opacity-50 flex items-center gap-2"
+              >
+                {savingOrder ? <Loader className="w-4 h-4 animate-spin" /> : 'Save All'}
+              </button>
             </div>
-          ))}
-        </div>
+            <div className="space-y-3">
+              {projects.map(p => (
+                <div key={p._id} className="flex items-center gap-4 p-3 bg-zinc-50 dark:bg-zinc-700/30 rounded-lg">
+                  <img src={p.mainImage} className="w-12 h-12 rounded object-cover" />
+                  <div className="flex-1 font-medium dark:text-white">{p.title}</div>
+                  <input
+                    type="number"
+                    value={orderData[p._id] || 0}
+                    onChange={(e) => handleOrderChange(p._id, e.target.value)}
+                    className="w-20 p-2 rounded border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-white text-center"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Modal */}
         {isModalOpen && (
@@ -269,7 +348,7 @@ const Dashboard = () => {
                   ✕
                 </button>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Project Title</label>
@@ -295,7 +374,7 @@ const Dashboard = () => {
                     placeholder="Brief summary for the project card..."
                   ></textarea>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Full Description</label>
                   <textarea
@@ -323,7 +402,7 @@ const Dashboard = () => {
                       />
                       {formData.mainImage && (
                         <div className="h-10 w-10 shrink-0 rounded overflow-hidden">
-                          <img src={formData.mainImage} alt="Main" className="h-full w-full object-cover"/>
+                          <img src={formData.mainImage} alt="Main" className="h-full w-full object-cover" />
                         </div>
                       )}
                     </div>
@@ -342,22 +421,22 @@ const Dashboard = () => {
                       className="w-full rounded-lg border-zinc-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white p-2 border"
                       disabled={uploading || formData.detailImages.length >= 8}
                     />
-                     {formData.detailImages.length > 0 && (
-                        <div className="flex gap-2 mt-2 flex-wrap">
-                          {formData.detailImages.map((img, idx) => (
-                             <div key={idx} className="relative h-16 w-16 rounded overflow-hidden group">
-                               <img src={img} alt={`Detail ${idx}`} className="h-full w-full object-cover"/>
-                               <button
-                                 type="button"
-                                 onClick={() => removeDetailImage(idx)}
-                                 className="absolute top-0 right-0 bg-red-600 text-white p-0.5 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity"
-                               >
-                                 <Trash2 size={12} />
-                               </button>
-                             </div>
-                          ))}
-                        </div>
-                      )}
+                    {formData.detailImages.length > 0 && (
+                      <div className="flex gap-2 mt-2 flex-wrap">
+                        {formData.detailImages.map((img, idx) => (
+                          <div key={idx} className="relative h-16 w-16 rounded overflow-hidden group">
+                            <img src={img} alt={`Detail ${idx}`} className="h-full w-full object-cover" />
+                            <button
+                              type="button"
+                              onClick={() => removeDetailImage(idx)}
+                              className="absolute top-0 right-0 bg-red-600 text-white p-0.5 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
 
@@ -392,8 +471,8 @@ const Dashboard = () => {
                     className="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg transition flex items-center justify-center gap-2"
                     disabled={uploading}
                   >
-                     {uploading && <Loader className="w-4 h-4 animate-spin" />}
-                     {uploading ? 'Uploading...' : 'Save Project'}
+                    {uploading && <Loader className="w-4 h-4 animate-spin" />}
+                    {uploading ? 'Uploading...' : 'Save Project'}
                   </button>
                 </div>
               </form>

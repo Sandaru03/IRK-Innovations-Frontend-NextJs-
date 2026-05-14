@@ -24,7 +24,7 @@ export async function GET(req) {
       };
     }
 
-    const projects = await Project.find({}, projection).sort({ createdAt: -1 });
+    const projects = await Project.find({}, projection).sort({ projectNumber: 1 });
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {
     console.error('API Error /projects:', error);
@@ -42,7 +42,7 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { title, description, shortDescription, mainImage, detailImages, liveLink, isFeatured } = body;
+    const { title, description, shortDescription, mainImage, detailImages, liveLink, isFeatured, projectNumber } = body;
 
     const project = await Project.create({
       title,
@@ -51,7 +51,8 @@ export async function POST(req) {
       mainImage,
       detailImages,
       liveLink,
-      isFeatured
+      isFeatured,
+      projectNumber
     });
 
     return NextResponse.json(project, { status: 201 });

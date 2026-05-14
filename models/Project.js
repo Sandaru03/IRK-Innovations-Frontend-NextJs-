@@ -27,6 +27,10 @@ const projectSchema = new mongoose.Schema({
   isFeatured: {
     type: Boolean,
     default: false
+  },
+  projectNumber: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 

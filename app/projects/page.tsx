@@ -15,7 +15,7 @@ async function getProjects() {
     mainImage: 1,
     isFeatured: 1,
     createdAt: 1
-  }).sort({ createdAt: -1 }).lean();
+  }).sort({ projectNumber: 1 }).lean();
   
   // Convert _id to string for serialization
   return projects.map(p => ({
