@@ -474,41 +474,41 @@ const HomePage = () => {
           >
             {[
               {
-                number: "01",
+
                 title: "Custom Electronics Design & Manufacturing",
-                description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "/Custom Electronics Design & Manufacturing.jpg"
+                description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
+                image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop"
               },
               {
-                number: "02",
+
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture designing, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "/Electronics Engineering Consulting.jpg"
+                image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800&auto=format&fit=crop"
               },
               {
-                number: "03",
+
                 title: "Tech Product Sourcing",
                 description: "We help to source reliable tech products with quality assurance.",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
               },
               // Duplicate Set for Infinite Scroll
               {
-                number: "01",
+
                 title: "Custom Electronics Design & Manufacturing",
-                description: "From idea to mass production — we design, prototype, validate and manufacture customized electronic products.",
-                image: "/Custom Electronics Design & Manufacturing.jpg"
+                description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
+                image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop"
               },
               {
-                number: "02",
+
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "/Electronics Engineering Consulting.jpg"
+                image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800&auto=format&fit=crop"
               },
               {
-                number: "03",
+
                 title: "Tech Product Sourcing",
                 description: "We help source reliable tech products directly from China with quality assurance.",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
               }
             ].map((service, index) => (
               <div
