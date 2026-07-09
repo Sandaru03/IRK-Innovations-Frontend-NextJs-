@@ -273,19 +273,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`h-1 rounded-full transition-all duration-300 ${idx === currentSlide
-                ? 'w-12 bg-yellow-400'
-                : 'w-8 bg-white/40 hover:bg-white/60'
-                }`}
-            />
-          ))}
-        </div>
+
 
       </section>
 
