@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: "Expert PCB Design and Electronics Manufacturing services. Custom engineering solutions from concept to production.",
     images: [
       {
-        url: '/IRKLogo.jpg',
+        url: '/IRKLogo.webp',
         width: 1200,
         height: 630,
         alt: 'IRK Innovations Logo',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "IRK Innovations | Electronics Products & Engineering Solutions",
     description: "Expert PCB Design and Electronics Manufacturing services.",
-    images: ['/IRKLogo.jpg'],
+    images: ['/IRKLogo.webp'],
   },
   robots: {
     index: true,
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     google: "wj0IQ1rCdjfrPObI8aE0v_A_elFNj6ALEenRP2iWKTM",
   },
   icons: {
-    icon: '/IRKLogo.jpg',
-    shortcut: '/IRKLogo.jpg',
-    apple: '/IRKLogo.jpg',
+    icon: '/IRKLogo.webp',
+    shortcut: '/IRKLogo.webp',
+    apple: '/IRKLogo.webp',
   },
 };
 

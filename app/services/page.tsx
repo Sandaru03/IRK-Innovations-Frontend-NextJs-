@@ -18,17 +18,17 @@ const ServicesPage = React.memo(() => {
     {
       title: "End-to-End Customized Electronics",
       description: "We need your problem only we offer you the solution. From design to manufacturing and installation, we follow standard industrial development steps.",
-      image: "/services_end_to_end.png"
+      image: "/services_end_to_end.webp"
     },
     {
       title: "Electronics Engineering Consultation",
       description: "10+ years of industry experience in Embedded products design and Manufacturing. Experts in architecture, testing and cost optimization.",
-      image: "/services_consulting.png"
+      image: "/services_consulting.webp"
     },
     {
       title: "Tech Products Sourcing",
       description: "Need to source specific tech products? We leverage our established global networks to source high-quality components and specialized hardware, ensuring rigorous Quality Assurance (QA) for every delivery.",
-      image: "/services_sourcing.png"
+      image: "/services_sourcing.webp"
     }
   ], []);
 

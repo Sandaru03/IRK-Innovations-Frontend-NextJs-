@@ -4,7 +4,7 @@ export default function JsonLd() {
     "@type": "Organization",
     "name": "IRK Innovations",
     "url": "https://irkinnovations.com",
-    "logo": "https://irkinnovations.com/IRKLogo.jpg",
+    "logo": "https://irkinnovations.com/IRKLogo.webp",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+94-76-537-6106",

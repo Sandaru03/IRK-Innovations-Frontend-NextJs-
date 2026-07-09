@@ -319,7 +319,7 @@ const HomePage = () => {
                 <div className="space-y-4 animate-float-1">
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="/electronics_lab.png"
+                      src="/electronics_lab.webp"
                       alt="Electronics Lab"
                       fill
                       className="object-cover"
@@ -327,7 +327,7 @@ const HomePage = () => {
                   </div>
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="/circuit_design.png"
+                      src="/circuit_design.webp"
                       alt="Circuit Design"
                       fill
                       className="object-cover"
@@ -339,7 +339,7 @@ const HomePage = () => {
                 <div className="space-y-4 pt-8 animate-float-2">
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="/pcb_board.png"
+                      src="/pcb_board.webp"
                       alt="PCB Board"
                       fill
                       className="object-cover"
@@ -347,7 +347,7 @@ const HomePage = () => {
                   </div>
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="/manufacturing.png"
+                      src="/manufacturing.webp"
                       alt="Manufacturing"
                       fill
                       className="object-cover"
@@ -465,38 +465,38 @@ const HomePage = () => {
 
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
-                image: "/custom_electronics.png"
+                image: "/custom_electronics.webp"
               },
               {
 
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture designing, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "/engineering_consulting.png"
+                image: "/engineering_consulting.webp"
               },
               {
 
                 title: "Tech Product Sourcing",
                 description: "We help to source reliable tech products with quality assurance.",
-                image: "/tech_sourcing.png"
+                image: "/tech_sourcing.webp"
               },
               // Duplicate Set for Infinite Scroll
               {
 
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
-                image: "/custom_electronics.png"
+                image: "/custom_electronics.webp"
               },
               {
 
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "/engineering_consulting.png"
+                image: "/engineering_consulting.webp"
               },
               {
 
                 title: "Tech Product Sourcing",
                 description: "We help source reliable tech products directly from China with quality assurance.",
-                image: "/tech_sourcing.png"
+                image: "/tech_sourcing.webp"
               }
             ].map((service, index) => (
               <div
@@ -669,17 +669,17 @@ const HomePage = () => {
               {/* Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-64 sm:h-80 rounded-tl-[60px] rounded-br-[60px] overflow-hidden">
-                  <Image src="/goals_worker.png" fill className="object-cover" alt="Worker" />
+                  <Image src="/goals_worker.webp" fill className="object-cover" alt="Worker" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-tr-[60px] rounded-bl-[60px] overflow-hidden mt-8 md:mt-12">
                   {/* FIXED: Replaced broken Engineer image with a reliable one */}
-                  <Image src="/goals_engineer.png" fill className="object-cover" alt="Engineer" />
+                  <Image src="/goals_engineer.webp" fill className="object-cover" alt="Engineer" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-bl-[60px] rounded-tr-[60px] overflow-hidden -mt-8 md:-mt-12">
-                  <Image src="/goals_circuit.png" fill className="object-cover" alt="Circuit" />
+                  <Image src="/goals_circuit.webp" fill className="object-cover" alt="Circuit" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-br-[60px] rounded-tl-[60px] overflow-hidden">
-                  <Image src="/goals_panel.png" fill className="object-cover" alt="Panel" />
+                  <Image src="/goals_panel.webp" fill className="object-cover" alt="Panel" />
                 </div>
               </div>
 
@@ -702,7 +702,7 @@ const HomePage = () => {
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-20 h-20 md:w-27 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
                       <div className="w-full h-full relative">
-                        <Image src="/IRKLogo.jpg" alt="IRK Logo" fill className="object-cover scale-125" />
+                        <Image src="/IRKLogo.webp" alt="IRK Logo" fill className="object-cover scale-125" />
                       </div>
                     </div>
                   </div>
