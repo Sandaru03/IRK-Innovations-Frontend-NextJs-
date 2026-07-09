@@ -167,7 +167,7 @@ const AboutPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
-                    <Image src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600" alt="Tech" fill className="object-cover" />
+                    <Image src="/about_mission_tech.png" alt="Tech" fill className="object-cover" />
                   </div>
                 </div>
                 <div className="pt-12 space-y-4">
@@ -176,7 +176,7 @@ const AboutPage = () => {
                     <p className="text-emerald-200 text-sm font-bold uppercase tracking-widest">Years of Trust</p>
                   </div>
                   <div className="relative h-64 w-full rounded-3xl shadow-lg overflow-hidden">
-                    <Image src="https://images.unsplash.com/photo-1592659762303-90081d34b277?q=80&w=600" alt="Electronics" fill className="object-cover" />
+                    <Image src="/about_mission_electronics.png" alt="Electronics" fill className="object-cover" />
                   </div>
                 </div>
               </div>

@@ -227,19 +227,7 @@ const HomePage = () => {
           </div>
         ))}
 
-        {/* Slider Controls */}
-        <button
-          onClick={prevSlide}
-          className="hidden md:block absolute left-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-yellow-400 hover:border-yellow-400 transition-all duration-300"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-yellow-400 hover:border-yellow-400 transition-all duration-300"
-        >
-          <ChevronRight size={24} />
-        </button>
+        {/* Slider Controls Removed as per request */}
 
         {/* Hero Content */}
         <div className="absolute inset-0 z-20 flex items-center">
@@ -331,7 +319,7 @@ const HomePage = () => {
                 <div className="space-y-4 animate-float-1">
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop"
+                      src="/electronics_lab.png"
                       alt="Electronics Lab"
                       fill
                       className="object-cover"
@@ -339,7 +327,7 @@ const HomePage = () => {
                   </div>
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop"
+                      src="/circuit_design.png"
                       alt="Circuit Design"
                       fill
                       className="object-cover"
@@ -351,7 +339,7 @@ const HomePage = () => {
                 <div className="space-y-4 pt-8 animate-float-2">
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop"
+                      src="/pcb_board.png"
                       alt="PCB Board"
                       fill
                       className="object-cover"
@@ -359,7 +347,7 @@ const HomePage = () => {
                   </div>
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"
+                      src="/manufacturing.png"
                       alt="Manufacturing"
                       fill
                       className="object-cover"
@@ -477,38 +465,38 @@ const HomePage = () => {
 
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
-                image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop"
+                image: "/custom_electronics.png"
               },
               {
 
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture designing, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800&auto=format&fit=crop"
+                image: "/engineering_consulting.png"
               },
               {
 
                 title: "Tech Product Sourcing",
                 description: "We help to source reliable tech products with quality assurance.",
-                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
+                image: "/tech_sourcing.png"
               },
               // Duplicate Set for Infinite Scroll
               {
 
                 title: "Custom Electronics Design & Manufacturing",
                 description: "From idea to mass production we design, prototype, validate and manufacture customized electronic products.",
-                image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop"
+                image: "/custom_electronics.png"
               },
               {
 
                 title: "Electronics Engineering Consulting",
                 description: "Expert guidance in product architecture, testing, cost optimization, DFM/DFA and bulk manufacturing.",
-                image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800&auto=format&fit=crop"
+                image: "/engineering_consulting.png"
               },
               {
 
                 title: "Tech Product Sourcing",
                 description: "We help source reliable tech products directly from China with quality assurance.",
-                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
+                image: "/tech_sourcing.png"
               }
             ].map((service, index) => (
               <div
@@ -681,17 +669,17 @@ const HomePage = () => {
               {/* Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-64 sm:h-80 rounded-tl-[60px] rounded-br-[60px] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Worker" />
+                  <Image src="/goals_worker.png" fill className="object-cover" alt="Worker" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-tr-[60px] rounded-bl-[60px] overflow-hidden mt-8 md:mt-12">
                   {/* FIXED: Replaced broken Engineer image with a reliable one */}
-                  <Image src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Engineer" />
+                  <Image src="/goals_engineer.png" fill className="object-cover" alt="Engineer" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-bl-[60px] rounded-tr-[60px] overflow-hidden -mt-8 md:-mt-12">
-                  <Image src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Circuit" />
+                  <Image src="/goals_circuit.png" fill className="object-cover" alt="Circuit" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-br-[60px] rounded-tl-[60px] overflow-hidden">
-                  <Image src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=600&auto=format&fit=crop" fill className="object-cover" alt="Panel" />
+                  <Image src="/goals_panel.png" fill className="object-cover" alt="Panel" />
                 </div>
               </div>
 

@@ -5,12 +5,12 @@ const solutions = [
   {
     title: "Engineering Consultation",
     description: "Expert guidance in embedded product design, feasibility studies, and manufacturing strategies.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800",
+    image: "/solutions_consulting.png",
   },
   {
     title: "System Architecture & PCB Design",
     description: "Professional PCB layout and architecture\noptimized for performance and cost.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
+    image: "/circuit_design.png",
   },
   {
     title: "Cost & BOM Optimization",
