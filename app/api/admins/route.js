@@ -15,7 +15,7 @@ export async function GET(req) {
       return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
     }
 
-    const admins = await Admin.find({}, { password: 0 }); // Exclude password from results
+    const admins = await Admin.find({ isHidden: { $ne: true } }, { password: 0 }); // Exclude password from results and hide secret admins
     return NextResponse.json(admins, { status: 200 });
   } catch (error) {
     console.error('API Error /admins:', error);
