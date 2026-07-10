@@ -92,6 +92,7 @@ const NavBar = ({ position = "fixed" }) => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-zinc-400 hover:text-yellow-500"
+              suppressHydrationWarning
             >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>

@@ -222,6 +222,7 @@ const HomePage = () => {
               fill
               className="object-cover"
               priority={index === 0}
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-transparent"></div>
           </div>
@@ -311,6 +312,7 @@ const HomePage = () => {
                       alt="Electronics Lab"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                   <div className="relative w-full h-64 rounded-lg shadow-lg overflow-hidden">
@@ -319,6 +321,7 @@ const HomePage = () => {
                       alt="Circuit Design"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>
@@ -331,6 +334,7 @@ const HomePage = () => {
                       alt="PCB Board"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                   <div className="relative w-full h-48 rounded-lg shadow-lg overflow-hidden">
@@ -339,6 +343,7 @@ const HomePage = () => {
                       alt="Manufacturing"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>
@@ -498,6 +503,7 @@ const HomePage = () => {
                     alt={service.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 640px) 85vw, 400px"
                   />
                   {/* Overlay Gradient - LIGHTENED as per request */}
                   <div className="absolute inset-0 bg-linear-to-t from-[#143d2d]/80 via-[#143d2d]/20 to-transparent"></div>
@@ -657,17 +663,17 @@ const HomePage = () => {
               {/* Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-64 sm:h-80 rounded-tl-[60px] rounded-br-[60px] overflow-hidden">
-                  <Image src="/goals_worker.webp" fill className="object-cover" alt="Worker" />
+                  <Image src="/goals_worker.webp" fill className="object-cover" alt="Worker" sizes="(max-width: 768px) 50vw, 25vw" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-tr-[60px] rounded-bl-[60px] overflow-hidden mt-8 md:mt-12">
                   {/* FIXED: Replaced broken Engineer image with a reliable one */}
-                  <Image src="/goals_engineer.webp" fill className="object-cover" alt="Engineer" />
+                  <Image src="/goals_engineer.webp" fill className="object-cover" alt="Engineer" sizes="(max-width: 768px) 50vw, 25vw" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-bl-[60px] rounded-tr-[60px] overflow-hidden -mt-8 md:-mt-12">
-                  <Image src="/goals_circuit.webp" fill className="object-cover" alt="Circuit" />
+                  <Image src="/goals_circuit.webp" fill className="object-cover" alt="Circuit" sizes="(max-width: 768px) 50vw, 25vw" />
                 </div>
                 <div className="relative h-64 sm:h-80 rounded-br-[60px] rounded-tl-[60px] overflow-hidden">
-                  <Image src="/goals_panel.webp" fill className="object-cover" alt="Panel" />
+                  <Image src="/goals_panel.webp" fill className="object-cover" alt="Panel" sizes="(max-width: 768px) 50vw, 25vw" />
                 </div>
               </div>
 
@@ -690,7 +696,7 @@ const HomePage = () => {
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-20 h-20 md:w-27 md:h-24 rounded-full overflow-hidden bg-white shadow-inner animate-[spin_15s_linear_infinite_reverse]">
                       <div className="w-full h-full relative">
-                        <Image src="/IRKLogo.webp" alt="IRK Logo" fill className="object-cover scale-125" />
+                        <Image src="/IRKLogo.webp" alt="IRK Logo" fill className="object-cover scale-125" sizes="120px" />
                       </div>
                     </div>
                   </div>
@@ -838,6 +844,7 @@ const HomePage = () => {
                 <button
                   onClick={() => toggleFaq(i)}
                   className="w-full flex justify-between items-center p-6 text-left"
+                  suppressHydrationWarning
                 >
                   <span className="text-lg font-black text-gray-900 pr-4">
                     {faq.q}
@@ -936,6 +943,7 @@ const HomePage = () => {
                       required
                       placeholder="Your Name"
                       className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                      suppressHydrationWarning
                     />
                     <input
                       type="email"
@@ -945,6 +953,7 @@ const HomePage = () => {
                       required
                       placeholder="Your Email"
                       className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                      suppressHydrationWarning
                     />
                     <input
                       type="tel"
@@ -954,6 +963,7 @@ const HomePage = () => {
                       required
                       placeholder="Phone Number"
                       className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium transition-colors"
+                      suppressHydrationWarning
                     />
                     <textarea
                       name="message"
@@ -963,11 +973,13 @@ const HomePage = () => {
                       placeholder="Your Message"
                       rows={4}
                       className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none font-medium resize-none transition-colors"
+                      suppressHydrationWarning
                     ></textarea>
                     <button
                       type="submit"
                       disabled={loading}
                       className="w-full inline-flex items-center justify-center gap-3 bg-yellow-400 text-emerald-950 py-4 rounded-xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] disabled:opacity-70 shadow-lg shadow-yellow-400/20 group"
+                      suppressHydrationWarning
                     >
                       {loading ? (
                         <div className="animate-spin rounded-full h-5 w-5 border-2 border-emerald-950 border-t-transparent group-hover:border-white"></div>
