@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, LogOut, LayoutDashboard, Link as LinkIcon, Edit2, Loader, Star } from 'lucide-react';
+import { Plus, Trash2, LogOut, LayoutDashboard, Link as LinkIcon, Edit2, Loader, Star, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabaseClient';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState<any[]>([]);
-  const [activeSection, setActiveSection] = useState<'projects' | 'order'>('projects');
+  const [activeSection, setActiveSection] = useState<'projects' | 'order' | 'admins'>('projects');
   const [orderData, setOrderData] = useState<any>({});
   const [savingOrder, setSavingOrder] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +25,9 @@ const Dashboard = () => {
   const [uploading, setUploading] = useState(false);
   const [editingProject, setEditingProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [admins, setAdmins] = useState<any[]>([]);
+  const [adminFormData, setAdminFormData] = useState({ email: '', password: '' });
+  const [savingAdmin, setSavingAdmin] = useState(false);
   const router = useRouter();
 
   // Auth check
@@ -37,7 +40,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchProjects();
+    fetchAdmins();
   }, []);
+
+  const fetchAdmins = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      if (!token) return;
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+      const response = await axios.get(`${apiUrl}/admins`, config);
+      setAdmins(response.data);
+    } catch (error) {
+      console.error('Error fetching admins:', error);
+    }
+  };
 
   const fetchProjects = async () => {
     try {
@@ -205,8 +222,15 @@ const Dashboard = () => {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
         await axios.delete(`${apiUrl}/projects/${id}`, config);
         fetchProjects();
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error deleting project:', error);
+        if (error.response?.status === 401) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('adminToken');
+          router.push('/adminlogin');
+        } else {
+          alert('Error deleting project');
+        }
       }
     }
   };
@@ -226,9 +250,15 @@ const Dashboard = () => {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       await axios.put(`${apiUrl}/projects/${project._id}`, { isFeatured: !isCurrentlyFeatured }, config);
       fetchProjects();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error toggling featured status:', error);
-      alert('Error updating project status');
+      if (error.response?.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('adminToken');
+        router.push('/adminlogin');
+      } else {
+        alert('Error updating project status');
+      }
     }
   };
 
@@ -252,11 +282,55 @@ const Dashboard = () => {
       await Promise.all(updates);
       await fetchProjects();
       alert('Project counts updated successfully!');
-    } catch (error) {
-      console.error('Error saving orders:', error);
-      alert('Failed to update project counts.');
+    } catch (error: any) {
+      console.error('Error updating order:', error);
+      if (error.response?.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('adminToken');
+        router.push('/adminlogin');
+      } else {
+        alert('Error updating order');
+      }
     } finally {
       setSavingOrder(false);
+    }
+  };
+  const handleAddAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!adminFormData.email || !adminFormData.password) {
+      alert('Email and password are required');
+      return;
+    }
+    setSavingAdmin(true);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+      await axios.post(`${apiUrl}/admins`, adminFormData, config);
+      setAdminFormData({ email: '', password: '' });
+      fetchAdmins();
+      alert('Admin created successfully');
+    } catch (error: any) {
+      console.error('Error adding admin:', error);
+      alert(error.response?.data?.message || 'Error creating admin');
+    } finally {
+      setSavingAdmin(false);
+    }
+  };
+
+  const handleDeleteAdmin = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this admin?')) {
+      try {
+        const token = localStorage.getItem('adminToken');
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+        await axios.delete(`${apiUrl}/admins/${id}`, config);
+        fetchAdmins();
+        alert('Admin deleted successfully');
+      } catch (error: any) {
+        console.error('Error deleting admin:', error);
+        alert(error.response?.data?.message || 'Error deleting admin');
+      }
     }
   };
 
@@ -276,8 +350,8 @@ const Dashboard = () => {
         <div className="flex-1 overflow-y-auto">
           <div className="p-8">
             <div className="flex items-center gap-3 mb-2">
-              <div className="bg-emerald-500/20 p-2 rounded-xl">
-                <LayoutDashboard className="w-8 h-8 text-emerald-400" />
+              <div className="bg-emerald-500/20 rounded-xl overflow-hidden flex items-center justify-center w-12 h-12 shrink-0">
+                <img src="/IRKLogo.webp" alt="IRK Logo" className="w-full h-full object-cover" />
               </div>
               <h1 className="text-3xl font-black tracking-tighter text-white">
                 IRK Admin
@@ -300,6 +374,13 @@ const Dashboard = () => {
             >
               <Star className="w-6 h-6" />
               <span className="font-bold text-lg">Manage Count</span>
+            </button>
+            <button
+              onClick={() => { setActiveSection('admins'); setIsSidebarOpen(false); }}
+              className={`w-full flex items-center gap-4 px-6 py-3 rounded-xl transition-all cursor-pointer ${activeSection === 'admins' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'text-slate-400 hover:text-white'}`}
+            >
+              <Users className="w-6 h-6" />
+              <span className="font-bold text-lg">Manage Admins</span>
             </button>
             <a href="/" target="_blank" className="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-white rounded-xl transition-all cursor-pointer group">
               <LinkIcon className="w-6 h-6 group-hover:text-emerald-400 transition-colors" />
@@ -333,24 +414,26 @@ const Dashboard = () => {
         </header>
 
         <div className="p-6 md:p-12 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <div>
-              <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">Project Management</h2>
-              <p className="text-slate-500 mt-2 text-lg">Manage and update your portfolio efficiently.</p>
-              <div className="mt-4 inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-full font-bold">
-                <Star className="w-5 h-5 fill-current" />
-                <span>Home Page Projects: {projects.filter(p => p.isFeatured).length} / 6</span>
+          {activeSection === 'projects' && (
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+              <div>
+                <h2 className="text-4xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">Project Management</h2>
+                <p className="text-slate-500 mt-2 text-lg">Manage and update your portfolio efficiently.</p>
+                <div className="mt-4 inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-full font-bold">
+                  <Star className="w-5 h-5 fill-current" />
+                  <span>Home Page Projects: {projects.filter(p => p.isFeatured).length} / 6</span>
+                </div>
               </div>
-            </div>
 
-            <button
-              onClick={() => openModal()}
-              className="flex items-center gap-2 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer font-bold text-lg"
-            >
-              <Plus className="w-6 h-6" />
-              Add Project
-            </button>
-          </div>
+              <button
+                onClick={() => openModal()}
+                className="flex items-center gap-2 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer font-bold text-lg"
+              >
+                <Plus className="w-6 h-6" />
+                Add Project
+              </button>
+            </div>
+          )}
 
           {/* Project Grid */}
           {loading ? (
@@ -398,12 +481,12 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : activeSection === 'order' ? (
             <div className="bg-slate-50/50 dark:bg-zinc-900/50 rounded-[2.5rem] shadow-sm p-8 md:p-12 border border-slate-200 dark:border-zinc-800">
               <div className="mb-10 px-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                   <h3 className="text-xl font-black text-slate-800 dark:text-white uppercase tracking-wider">Home Page Project Selection</h3>
-                  <p className="text-slate-500 mt-2 font-medium">Selected: <span className="font-bold text-slate-800 dark:text-white">{projects.length}</span> <span className="text-sm opacity-60 ml-1">(Home page shows first 9 only)</span></p>
+                  <p className="text-slate-500 mt-2 font-medium">Selected: <span className="font-bold text-slate-800 dark:text-white">{projects.filter(p => p.isFeatured).length}</span> <span className="text-sm opacity-60 ml-1">(Home page shows up to 6 featured projects)</span></p>
                 </div>
                 <button
                   onClick={saveAllOrders}
@@ -427,6 +510,74 @@ const Dashboard = () => {
                     />
                   </div>
                 ))}
+              </div>
+            </div>
+          ) : (
+            <div className="bg-slate-50/50 dark:bg-zinc-900/50 rounded-[2.5rem] shadow-sm p-8 md:p-12 border border-slate-200 dark:border-zinc-800">
+              <div className="mb-10 px-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <h3 className="text-xl font-black text-slate-800 dark:text-white uppercase tracking-wider">Admin Management</h3>
+                  <p className="text-slate-500 mt-2 font-medium">Manage administrators with access to this panel.</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                  <h4 className="font-bold text-slate-700 dark:text-zinc-200 mb-6 text-lg">Add New Admin</h4>
+                  <form onSubmit={handleAddAdmin} className="space-y-4 bg-white dark:bg-zinc-800 p-6 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+                    <div>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Email</label>
+                      <input
+                        type="email"
+                        value={adminFormData.email}
+                        onChange={(e) => setAdminFormData({ ...adminFormData, email: e.target.value })}
+                        className="w-full mt-2 rounded-xl bg-slate-50 dark:bg-zinc-900 border-transparent border focus:border-emerald-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-4 focus:ring-emerald-500/10 text-slate-800 dark:text-white p-4 transition-all"
+                        placeholder="admin@example.com"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Password</label>
+                      <input
+                        type="password"
+                        value={adminFormData.password}
+                        onChange={(e) => setAdminFormData({ ...adminFormData, password: e.target.value })}
+                        className="w-full mt-2 rounded-xl bg-slate-50 dark:bg-zinc-900 border-transparent border focus:border-emerald-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-4 focus:ring-emerald-500/10 text-slate-800 dark:text-white p-4 transition-all"
+                        placeholder="Password"
+                        required
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={savingAdmin}
+                      className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                    >
+                      {savingAdmin ? <Loader className="w-5 h-5 animate-spin" /> : <Plus className="w-5 h-5" />}
+                      Add Admin
+                    </button>
+                  </form>
+                </div>
+                
+                <div>
+                   <h4 className="font-bold text-slate-700 dark:text-zinc-200 mb-6 text-lg">Existing Admins</h4>
+                   <div className="space-y-3">
+                     {admins.map((admin) => (
+                       <div key={admin._id} className="flex items-center justify-between p-4 bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+                         <span className="font-bold text-slate-700 dark:text-zinc-200 truncate pr-4">{admin.email}</span>
+                         <button
+                           onClick={() => handleDeleteAdmin(admin._id)}
+                           className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all cursor-pointer"
+                           title="Delete Admin"
+                         >
+                           <Trash2 className="w-5 h-5" />
+                         </button>
+                       </div>
+                     ))}
+                     {admins.length === 0 && (
+                       <p className="text-slate-500 text-center py-4 bg-white dark:bg-zinc-800 rounded-2xl border border-slate-100 dark:border-zinc-700">No admins found.</p>
+                     )}
+                   </div>
+                </div>
               </div>
             </div>
           )}

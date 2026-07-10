@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     default: "IRK Innovations | Electronics Products & Engineering Solutions",
     template: "%s | IRK Innovations"
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   description: "Expert PCB Design, Smart Control Systems, and Electronics Manufacturing. Specialized in Gate Control, AC Control, Hoist Protection, and Tech Product Sourcing.",
   keywords: [
     "Smart gate control system",
